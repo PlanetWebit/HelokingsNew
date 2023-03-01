@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Helokings</string>
+    <string name="or">Or</string>
+    <string name="login_means">Login means you agree to our</string>
+    <string name="terms"><u>Terms</u></string>
+    <string name="privacy_policy"><u>&amp; privacy Policy</u></string>
+    <string name="otp_send">OTP SEND</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="login">Login</string>
+    <string name="home">Home</string>
+    <string name="moment">Moment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
