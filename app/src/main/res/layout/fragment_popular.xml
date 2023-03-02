@@ -231,6 +231,7 @@
                                 android:layout_height="24dp"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
+                                android:tintMode="@color/dark_blue"
                                 android:src="@drawable/persan" />
 
                             <LinearLayout
