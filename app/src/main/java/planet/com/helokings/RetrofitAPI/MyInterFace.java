@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface MyInterFace {
     @FormUrlEncoded
-    @POST("Api_latest/login_signup_otp")
+    @POST("Api_latest/login_signup_otp/")
     Call<LoginModel> logindata(
             @Field("phone") String phone,
             @Field("device_token") String device_token,
@@ -18,7 +18,7 @@ public interface MyInterFace {
     );
 
     @FormUrlEncoded
-    @POST("Api_latest/verify_mobile")
+    @POST("Api_latest/verify_mobile/")
     Call<OTPModel> OtpData(
             @Field("phone") String Phone,
             @Field("verification_code") String verification_code

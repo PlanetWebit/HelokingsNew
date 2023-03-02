@@ -49,6 +49,8 @@ public class OTPActivity extends AppCompatActivity {
         token = intent.getStringExtra("token");
 
 
+        userSharePreferancess=new UserSharePreferancess(this);
+
         otpactivityBinding.etLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
