@@ -49,7 +49,7 @@
                         android:padding="15sp">
 
                         <EditText
-                            android:id="@+id/user_otp"
+                            android:id="@+id/et_otp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
@@ -94,6 +94,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
+                            android:visibility="invisible"
                             android:text="30S"
                             android:textColor="@color/light_blue"
                             android:textSize="15sp" />
