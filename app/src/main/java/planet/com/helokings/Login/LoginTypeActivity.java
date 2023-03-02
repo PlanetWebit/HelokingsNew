@@ -11,7 +11,7 @@ import planet.com.helokings.databinding.ActivityLoginTypeBinding;
 
 public class LoginTypeActivity extends AppCompatActivity {
     ActivityLoginTypeBinding loginTypeBinding;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

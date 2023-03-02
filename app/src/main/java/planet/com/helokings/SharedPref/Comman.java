@@ -9,7 +9,7 @@ public class Comman {
     public String wallet_amount = "";
     public String image = "";
     String token = "";
-
+//
     public boolean add_status = false;
 
     public static Comman getInstance() {

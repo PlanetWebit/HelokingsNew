@@ -123,7 +123,7 @@ public class Data {
 
 	@SerializedName("online")
 	private String online;
-
+//tuy
 	@SerializedName("auth_token")
 	private String authToken;
 

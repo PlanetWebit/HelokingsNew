@@ -10,7 +10,7 @@ public class UserSharePreferancess {
     Context context;
 
     public UserSharePreferancess(Context ctx) {
-
+//
         settings = ctx.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
         editor = settings.edit();
         context = ctx;

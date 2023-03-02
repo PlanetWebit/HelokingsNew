@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         context = this;
-
+//
 
         userSharePreferancess = new UserSharePreferancess(context);
         String user_id = userSharePreferancess.getStringValue("user_id");

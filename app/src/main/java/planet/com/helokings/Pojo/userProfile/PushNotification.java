@@ -15,7 +15,7 @@ public class PushNotification {
 
 	@SerializedName("id")
 	private String id;
-
+//hj
 	@SerializedName("new_followers")
 	private String newFollowers;
 

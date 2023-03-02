@@ -68,7 +68,7 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
     }
-
+//
     private void OtpVerify() {
         progressDialog.show();
         retrofit2.Call<OTPModel> otpModuleCall = RetrofitClient.getInstance().myInterFaceData().OtpData(mobile_number, otpactivityBinding.etOtp.getText().toString());

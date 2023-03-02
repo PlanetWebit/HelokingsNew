@@ -15,7 +15,7 @@ public class ResponseProfile {
 
     @SerializedName("PushNotification")
     private PushNotification pushNotification;
-
+//h
     @SerializedName("status")
     private String status;
 

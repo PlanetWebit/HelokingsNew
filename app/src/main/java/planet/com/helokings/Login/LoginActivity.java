@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     String phone_id = "";
     ProgressDialog progressDialog;
 
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
