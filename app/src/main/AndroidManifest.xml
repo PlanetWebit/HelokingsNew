@@ -74,6 +74,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Activity.GoLiveActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Login.LoginActivity"
             android:exported="false">
             <meta-data
@@ -81,7 +88,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.GoLiveActivity"
+            android:name=".Login.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

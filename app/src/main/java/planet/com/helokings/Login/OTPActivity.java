@@ -39,7 +39,7 @@ public class OTPActivity extends AppCompatActivity {
         otpactivityBinding = ActivityOtpactivityBinding.inflate(getLayoutInflater());
         setContentView(otpactivityBinding.getRoot());
 
-        userSharePreferancess = new UserSharePreferancess(context);
+        userSharePreferancess = new UserSharePreferancess(this);
         progressDialog = new ProgressDialog(OTPActivity.this, R.style.MyDialogStyle);
         progressDialog.setMessage("Please wait...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
