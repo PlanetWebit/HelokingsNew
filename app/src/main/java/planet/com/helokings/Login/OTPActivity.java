@@ -55,6 +55,8 @@ public class OTPActivity extends AppCompatActivity {
         Toast.makeText(this, "" + otp, Toast.LENGTH_LONG).show();
 
 
+        userSharePreferancess=new UserSharePreferancess(this);
+
         otpactivityBinding.etLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
