@@ -30,7 +30,7 @@ public class OTPActivity extends AppCompatActivity {
     String user_id = "", mobile_number = "", otp = "", token = "";
     ProgressDialog progressDialog;
     UserSharePreferancess userSharePreferancess;
-     Context context;
+
 
 
     @Override
@@ -39,7 +39,7 @@ public class OTPActivity extends AppCompatActivity {
         otpactivityBinding = ActivityOtpactivityBinding.inflate(getLayoutInflater());
         setContentView(otpactivityBinding.getRoot());
 
-        userSharePreferancess = new UserSharePreferancess(context);
+        userSharePreferancess = new UserSharePreferancess(this);
         progressDialog = new ProgressDialog(OTPActivity.this, R.style.MyDialogStyle);
         progressDialog.setMessage("Please wait...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -103,7 +103,8 @@ public class OTPActivity extends AppCompatActivity {
                             finish();
                             Log.e("Comman", Comman.getInstance().getUser_id());
 
-                        } else {
+                        }
+                        else {
                             Intent newUser = new Intent(OTPActivity.this, RegisterationActivity.class);
                             newUser.putExtra("user_id", module.getToken());
                             startActivity(newUser);

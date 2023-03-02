@@ -7,12 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import planet.com.helokings.Pojo.userProfile.ResponseProfile;
 import planet.com.helokings.R;
+import planet.com.helokings.RetrofitAPI.RetrofitClient;
 import planet.com.helokings.SharedPref.Comman;
 import planet.com.helokings.SharedPref.UserSharePreferancess;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private static final int SPLASH_SCREEN_TIME_OUT = 2000;
     private UserSharePreferancess userSharePreferancess;
     private Context context;
 
@@ -22,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         context = this;
 
+
         userSharePreferancess = new UserSharePreferancess(context);
         String user_id = userSharePreferancess.getStringValue("user_id");
         String id = userSharePreferancess.getStringValue("id");
@@ -30,33 +37,24 @@ public class SplashActivity extends AppCompatActivity {
         Comman.getInstance().setUser_id(user_id);
         Comman.getInstance().setId(id);
         Comman.getInstance().setName(name);
-        Comman.getInstance().setUsername(username);
-        ;
+        Comman.getInstance().setUsername(username);;
         String token = userSharePreferancess.getStringValue("token");
         Comman.getInstance().setToken(token);
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!Comman.getInstance().getUser_id().equalsIgnoreCase("")) {
-                    // getUserProfile();
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Intent intent = new Intent(SplashActivity.this, LoginTypeActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+        new Handler().postDelayed(() -> {
+            if (!Comman.getInstance().getUser_id().equalsIgnoreCase("")) {
+                getUserProfile();
+            } else {
+                Intent intent = new Intent(SplashActivity.this, LoginTypeActivity.class);
+                startActivity(intent);
+                finish();
             }
-        }, 2000);
+
+        }, SPLASH_SCREEN_TIME_OUT);
+
     }
 
-/*
     private void getUserProfile() {
-        Call<ResponseProfile> mCall = RetrofitClient.getInstance().myInterFaceData().getUserProfile(
-                Comman.getInstance().getUser_id());
+        Call<ResponseProfile> mCall = RetrofitClient.getInstance().myInterFaceData().getUserProfile(Comman.getInstance().getUser_id());
         mCall.enqueue(new Callback<ResponseProfile>() {
             @Override
             public void onResponse(Call<ResponseProfile> call, Response<ResponseProfile> response) {
@@ -93,6 +91,5 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-*/
 
 }
