@@ -20,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding loginBinding;
     String phone_id = "";
@@ -30,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
-
         setContentView(loginBinding.getRoot());
+
         progressDialog = new ProgressDialog(LoginActivity.this, R.style.MyDialogStyle);
         progressDialog.setMessage("Please wait...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -39,13 +40,9 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.getWindow().setGravity(Gravity.RELATIVE_LAYOUT_DIRECTION);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-
         loginBinding.btnSendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Intent intent = new Intent(LoginActivity.this, OTPActivity.class);
-                startActivity(intent);*/
-
                 if (validation()) {
                     String nvalue = String.valueOf(loginBinding.etNumber.getText().charAt(0));
                     if (Integer.parseInt(nvalue) < 6) {
@@ -66,8 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Login() {
         progressDialog.show();
-        Call<LoginModel> call = RetrofitClient.getInstance().myInterFaceData().logindata(loginBinding.etNumber.getText().toString().replace("  ", "")
-                , phone_id, "android");
+        Call<LoginModel> call = RetrofitClient.getInstance().myInterFaceData().logindata(loginBinding.etNumber.getText().toString().replace(" ", ""), phone_id, "android");
         call.enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
@@ -82,22 +78,20 @@ public class LoginActivity extends AppCompatActivity {
                         inLogin.putExtra("token", phone_id);
                         startActivity(inLogin);
                         finish();
+
                     } else {
                         progressDialog.dismiss();
                         Toast.makeText(LoginActivity.this, "" + loginModel.getMsg(), Toast.LENGTH_SHORT).show();
-
                     }
                 } else {
                     Toast.makeText(LoginActivity.this, "failll", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(LoginActivity.this,""+t.getMessage(),Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(LoginActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

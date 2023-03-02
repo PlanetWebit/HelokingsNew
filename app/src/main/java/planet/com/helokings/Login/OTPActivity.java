@@ -3,6 +3,7 @@ package planet.com.helokings.Login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import planet.com.helokings.Activity.RegisterationActivity;
 import planet.com.helokings.Model.OTPModel;
@@ -22,11 +24,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class OTPActivity extends AppCompatActivity {
     ActivityOtpactivityBinding otpactivityBinding;
-    String user_id = "", mobile_number = "", otp = "",token="";
+    String user_id = "", mobile_number = "", otp = "", token = "";
     ProgressDialog progressDialog;
-    private UserSharePreferancess userSharePreferancess;
+    UserSharePreferancess userSharePreferancess;
+     Context context;
 
 
     @Override
@@ -35,6 +39,7 @@ public class OTPActivity extends AppCompatActivity {
         otpactivityBinding = ActivityOtpactivityBinding.inflate(getLayoutInflater());
         setContentView(otpactivityBinding.getRoot());
 
+        userSharePreferancess = new UserSharePreferancess(context);
         progressDialog = new ProgressDialog(OTPActivity.this, R.style.MyDialogStyle);
         progressDialog.setMessage("Please wait...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -47,14 +52,14 @@ public class OTPActivity extends AppCompatActivity {
         mobile_number = intent.getStringExtra("mobile_number");
         otp = intent.getStringExtra("otp");
         token = intent.getStringExtra("token");
+        Toast.makeText(this, "" + otp, Toast.LENGTH_LONG).show();
 
 
         otpactivityBinding.etLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(OTPActivity.this, MainActivity.class);
-                startActivity(intent);*/
-                if(Validation()){
+
+                if (Validation()) {
                     OtpVerify();
 
                 }
@@ -64,34 +69,31 @@ public class OTPActivity extends AppCompatActivity {
 
     private void OtpVerify() {
         progressDialog.show();
-        Call<OTPModel> call = RetrofitClient.getInstance().myInterFaceData().OtpData(mobile_number,otpactivityBinding.etOtp.getText().toString());
-        call.enqueue(new Callback<OTPModel>() {
+        retrofit2.Call<OTPModel> otpModuleCall = RetrofitClient.getInstance().myInterFaceData().OtpData(mobile_number, otpactivityBinding.etOtp.getText().toString());
+        otpModuleCall.enqueue(new Callback<OTPModel>() {
             @Override
-            public void onResponse(Call<OTPModel> call, Response<OTPModel> response) {
+            public void onResponse(retrofit2.Call<OTPModel> call, Response<OTPModel> response) {
                 progressDialog.dismiss();
-                OTPModel otpModel = response.body();
-                if(response.isSuccessful()){
-                    if(otpModel.getStatus().equalsIgnoreCase("true")){
-                        if (otpModel.getProfileComplete().equalsIgnoreCase("1")) {
+                OTPModel module = response.body();
+                if (response.isSuccessful()) {
+                    if (module.getStatus().equalsIgnoreCase("true")) {
 
-                            userSharePreferancess.setStringValue("user_id", otpModel.getToken());
-                            Comman.getInstance().setUser_id(otpModel.getToken());
+                        if (module.getProfileComplete().equalsIgnoreCase("1")) {
+                            userSharePreferancess.setStringValue("user_id", module.getToken());
+                            Comman.getInstance().setUser_id(module.getToken());
 
-                            userSharePreferancess.setStringValue("id", otpModel.getUserId());
-                            Comman.getInstance().setId(otpModel.getUserId());
+                            userSharePreferancess.setStringValue("id", module.getUserId());
+                            Comman.getInstance().setId(module.getUserId());
 
-                            userSharePreferancess.setStringValue("username", otpModel.getUsername());
-                            Comman.getInstance().setUsername(otpModel.getUsername());
+                            userSharePreferancess.setStringValue("username", module.getUsername());
+                            Comman.getInstance().setUsername(module.getUsername());
 
-                            userSharePreferancess.setStringValue("name", otpModel.getNickName());
-                            Comman.getInstance().setName(otpModel.getNickName());
-
-
-                            userSharePreferancess.setStringValue("token", otpModel.getToken());
-                            Comman.getInstance().setToken(otpModel.getToken());
+                            userSharePreferancess.setStringValue("name", module.getNickName());
+                            Comman.getInstance().setName(module.getNickName());
 
 
-
+                            userSharePreferancess.setStringValue("token", module.getToken());
+                            Comman.getInstance().setToken(module.getToken());
 
 
                             Intent oldUser = new Intent(OTPActivity.this, MainActivity.class);
@@ -99,38 +101,37 @@ public class OTPActivity extends AppCompatActivity {
                             finish();
                             Log.e("Comman", Comman.getInstance().getUser_id());
 
-                        } else  {
+                        } else {
                             Intent newUser = new Intent(OTPActivity.this, RegisterationActivity.class);
-                            newUser.putExtra("user_id", otpModel.getToken());
+                            newUser.putExtra("user_id", module.getToken());
                             startActivity(newUser);
                             finish();
                         }
-
-
-                        }
-
-                        }
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(OTPActivity.this, module.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
-
+            }
 
             @Override
             public void onFailure(Call<OTPModel> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(OTPActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
-
     }
 
     private boolean Validation() {
-        if(otpactivityBinding.etOtp.getText().toString().equalsIgnoreCase("")){
+        if (otpactivityBinding.etOtp.getText().toString().equalsIgnoreCase("")) {
             otpactivityBinding.etOtp.setError("Please enter otp");
             otpactivityBinding.etOtp.requestFocus();
             return false;
 
-        }
-        else if(otpactivityBinding.etOtp.getText().toString().length()<4){
+        } else if (otpactivityBinding.etOtp.getText().toString().length() < 4) {
             otpactivityBinding.etOtp.setError("Please enter valid otp ");
             otpactivityBinding.etOtp.requestFocus();
             return false;
