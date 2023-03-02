@@ -45,6 +45,7 @@ public class RegisterationActivity extends AppCompatActivity {
     private CircleImageView profileImage;
     private static final int PERMISSION_REQUEST_CODE = 200;
     private File finalFile;
+    private File finalFile1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
