@@ -30,7 +30,7 @@ public class OTPActivity extends AppCompatActivity {
     String user_id = "", mobile_number = "", otp = "", token = "";
     ProgressDialog progressDialog;
     UserSharePreferancess userSharePreferancess;
-     Context context;
+
 
 
     @Override
@@ -68,7 +68,7 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
     }
-
+//
     private void OtpVerify() {
         progressDialog.show();
         retrofit2.Call<OTPModel> otpModuleCall = RetrofitClient.getInstance().myInterFaceData().OtpData(mobile_number, otpactivityBinding.etOtp.getText().toString());
@@ -103,7 +103,8 @@ public class OTPActivity extends AppCompatActivity {
                             finish();
                             Log.e("Comman", Comman.getInstance().getUser_id());
 
-                        } else {
+                        }
+                        else {
                             Intent newUser = new Intent(OTPActivity.this, RegisterationActivity.class);
                             newUser.putExtra("user_id", module.getToken());
                             startActivity(newUser);
