@@ -12,4 +12,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my">My</string>
+    <string name="room_page_host">Host</string>
+    <string name="tomastr">Top Master in Brand</string>
+    <string name="onlive">ON LIVE</string>
+    <string name="helo_kings_store">Helo Kings Store</string>
+
 </resources>

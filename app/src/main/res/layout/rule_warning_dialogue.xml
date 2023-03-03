@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+    android:theme="@style/MyDialogStyle"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+   >
+
+<LinearLayout
+    android:layout_margin="20dp"
+
+    android:background="@drawable/whiterounded"
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="4">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/tool_bar_bgrounded"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+
+            android:id="@+id/topimg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="30dp"
+            android:src="@drawable/mainlogo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:textColor="@color/white"
+            android:layout_width="209dp"
+            android:layout_height="100dp"
+            android:textStyle="bold"
+            android:layout_alignRight="@+id/topimg"
+            android:layout_margin="30dp"
+             android:textAlignment="textStart"
+            android:text="Please be considerate so that everyone has a good time here.
+Remember that there are 3 rules strictly forbidden:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/topimg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="3.5"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_weight="0.5"
+            android:id="@+id/textpont"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="1"
+            android:textSize="16sp"
+          />
+        <TextView
+            android:layout_weight="2"
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+             android:layout_alignRight="@+id/topimg1"
+             android:text="Abusive language, profanity, violence or violent behaviour of any kind..."
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+  />
+        <ImageView
+
+            android:layout_weight="1"
+            android:id="@+id/topimg1"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/mainlogo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.453"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:layout_height="1dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="3.5"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+
+            android:layout_weight="1"
+            android:id="@+id/topimg2"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/mainlogo"
+    />
+
+
+        <TextView
+            android:layout_weight="2"
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+             android:text="Images containing nudity or sexual content...."
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+
+
+        <TextView
+            android:layout_weight="0.5"
+            android:id="@+id/textpont2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/white"
+
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="3.5"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_weight="0.5"
+            android:id="@+id/textpont3"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white"
+
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_weight="2"
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+             android:text="Tobacco, alcohol, drugs or similar substances..."
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+        <ImageView
+
+            android:layout_weight="1"
+            android:id="@+id/topimg3"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/mainlogo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.453"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    </LinearLayout></LinearLayout>
+    <com.skydoves.elasticviews.ElasticButton
+        android:id="@+id/iundersatnd"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_bg"
+        android:text="I Understand"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
+</LinearLayout>

@@ -20,7 +20,7 @@ public class RetrofitClient {
         return retrofitclient;
     }
 
-    public MyInterFace myInterFaceData() {
+    public MyInterFace getAllApiResponse() {
         return retrofit.create(MyInterFace.class);
     }
 

@@ -32,28 +32,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:ignore="MissingConstraints">
     <RelativeLayout
         android:id="@+id/live_host_layout"
         android:layout_width="wrap_content"
-        android:layout_height="34dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="13dp"
-
-        android:background="@drawable/circletrasnaoarent"
+        android:background="@drawable/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlCompat">
 
         <de.hdodenhof.circleimageview.CircleImageView
              android:id="@+id/live_host_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="3dp"
-            app:circleRadius="14dp"
-
+            android:src="@drawable/splash"
+             app:circleRadius="14dp"
            />
+        <LinearLayout
+            android:layout_margin="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/live_host_icon"
+            android:orientation="vertical"
+            >
+
+
 
         <TextView
             android:id="@+id/live_host_name"
@@ -62,6 +73,7 @@
             android:layout_centerInParent="true"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="12dp"
+            android:text="Bede the bande"
             android:layout_toRightOf="@id/live_host_icon"
             android:ellipsize="end"
             android:maxWidth="120dp"
@@ -69,100 +81,84 @@
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/live_host_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="12dp"
+                android:text="ID: 5478548"
+                android:layout_toRightOf="@id/live_host_icon"
+                android:ellipsize="end"
+                android:maxWidth="120dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
     </RelativeLayout>
 
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_marginTop="13dp"-->
+<!--        android:layout_toRightOf="@id/live_host_layout"-->
+
+<!--        android:layout_height="wrap_content"-->
+<!--        />-->
 
 
-    <LinearLayout
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/stardetailslay"
-        app:layout_constraintTop_toBottomOf="@+id/live_host_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        android:layout_marginLeft="12dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginTop="13dp"
 
-        <LinearLayout
-            android:id="@+id/diamond"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/circletrasnaoarent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+        android:id="@+id/showAudience"
+        android:layout_marginRight="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_toLeftOf="@+id/share"
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="7dp"
-                android:backgroundTint="@color/white"
-                 />
+        android:src="@drawable/splash"
+        app:circleRadius="14dp"
+        />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:text="50k"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginTop="13dp"
+        android:layout_toLeftOf="@+id/exitroom"
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="3dp"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/star"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/circletrasnaoarent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+        android:id="@+id/share"
+         android:layout_width="40dp"
+        android:layout_height="40dp"
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="7dp"
-                android:backgroundTint="@color/white"
-          />
+        android:src="@drawable/splash"
+        app:circleRadius="14dp"
+        />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginTop="13dp"
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:text="50k"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+        android:id="@+id/exitroom"
+        android:layout_alignParentEnd="true"
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="3dp"
-               />
-        </LinearLayout>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
 
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/splash"
+        app:circleRadius="14dp"
+        android:layout_marginRight="5dp"
+        />
+</RelativeLayout>
 
-    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_gift_toast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
-        android:background="@drawable/circletrasnaoarent"
+        android:background="@drawable/button"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
@@ -192,7 +188,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_data_recycler_view"
         android:layout_width="270dp"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toTopOf="@+id/chatandgift"
 
         android:layout_marginEnd="90dp"
@@ -201,6 +197,7 @@
 
     <RelativeLayout
 
+        android:layout_margin="10dp"
         android:id="@+id/chatandgift"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -210,141 +207,106 @@
         android:gravity="center"
         tools:ignore="MissingConstraints">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <EditText
+            android:id="@+id/iv_im"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:background="@drawable/buttontransparent"
+             android:hint="Say hi.."
+            android:padding="10dp"
+            android:editable="false"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/iv_im"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:background="@drawable/circletrasnaoarent"
-                android:gravity="center"
-                android:hint="chat.."
-                android:padding="10dp"
-                android:editable="false"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="15sp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+             android:layout_toRightOf="@+id/iv_im"
 
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:id="@+id/cohostfunction"
-                    android:layout_width="0dp"
-                    android:visibility="gone"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/circletrasnaoarent"
-                    android:gravity="center">
+            android:id="@+id/miconoff"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/buttontransparent"
 
-                    <ImageView
-                        android:id="@+id/requesttohost"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:gravity="center"
-                       />
-
-                    <ImageView
-                        android:id="@+id/canceltohost"
-                        android:layout_width="20dp"
-                        android:visibility="gone"
-                        android:layout_height="20dp"
-                        android:gravity="center"
-                      />
-
-                    <ImageView
-                        android:id="@+id/endtohost"
-                        android:layout_width="20dp"
-                        android:visibility="gone"
-                        android:layout_height="20dp"
-                        android:gravity="center"
-                      />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/openlist"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/circletrasnaoarent"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:gravity="center"
-                         />
+            android:src="@drawable/micon"
+            app:circleRadius="14dp"
+            />
 
 
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/iv_settings"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/circletrasnaoarent"
-                    android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:gravity="center"
-                         app:tint="@color/white" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_toRightOf="@+id/miconoff"
+
+            android:id="@+id/filterss"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/buttontransparent"
+
+            android:src="@drawable/emojifiler"
+            app:circleRadius="14dp"
+            />
 
 
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lv_shareiv"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/circletrasnaoarent"
-                    android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:gravity="center"
-                         app:tint="@color/white" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_toRightOf="@+id/filterss"
+
+            android:id="@+id/addforpk"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/buttontransparent"
+
+            android:src="@drawable/emojifiler"
+            app:circleRadius="14dp"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_toRightOf="@+id/addforpk"
+
+            android:id="@+id/inboxmessage"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/buttontransparent"
+
+            android:src="@drawable/emojifiler"
+            app:circleRadius="14dp"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_toRightOf="@+id/inboxmessage"
+
+            android:id="@+id/moresettings"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/buttontransparent"
+
+            android:src="@drawable/emojifiler"
+            app:circleRadius="14dp"
+            />
 
 
-                </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_toRightOf="@+id/moresettings"
 
-            </LinearLayout>
+            android:id="@+id/giftsend"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/buttontransparent"
 
-            <LinearLayout
-                android:id="@+id/iv_gift"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="5dp">
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                      />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
+            android:src="@drawable/emojifiler"
+            app:circleRadius="14dp"
+            />
 
 
     </RelativeLayout>
