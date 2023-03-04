@@ -47,6 +47,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ProfileActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Activity.MomentActivity"
             android:exported="false">
             <meta-data
@@ -55,13 +63,6 @@
         </activity>
         <activity
             android:name=".Activity.StoreActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Activity.RegisterationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -103,6 +104,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
             <meta-data
                 android:name="android.app.lib_name"

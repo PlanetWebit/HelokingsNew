@@ -32,13 +32,23 @@ public interface MyInterFace {
     Call<OTPModel> OtpData(@Field("phone") String user_id,
                             @Field("verification_code") String otp);
 
-    @Multipart
+  /*  @Multipart
     @POST("Api_latest/update_userdata")
-    Call<RegistrModule> userUpdate(@Part("auth_token") RequestBody auth_token,
+    Call<RegistrModule> userUpdate(
+            @Part("auth_token") RequestBody auth_token,
                                    @Part("nick_name") RequestBody nick_name,
                                    @Part("bio") RequestBody bio,
                                    @Part("gender") RequestBody gender,
                                    @Part MultipartBody.Part profile_pic
+    );*/
+
+    @FormUrlEncoded
+    @POST("Api_latest/update_userdata")
+    Call<RegistrModule> userUpdate(
+            @Field("auth_token") String  auth_token,
+            @Field("nick_name") String  nick_name,
+            @Field("gender") String  gender,
+            @Field("bio") String  bio
     );
 
     @FormUrlEncoded
