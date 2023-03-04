@@ -19,6 +19,8 @@ import planet.com.helokings.Adapter.StoreItemAdapter;
 import planet.com.helokings.Login.LoginActivity;
 import planet.com.helokings.Model.StoreFrameModel;
 import planet.com.helokings.Model.StoreModel;
+import planet.com.helokings.Pojo.Fonts.ResponseFonts;
+import planet.com.helokings.Pojo.Frames.ResponseFrames;
 import planet.com.helokings.Pojo.StoreModelPojo;
 import planet.com.helokings.R;
 import planet.com.helokings.RetrofitAPI.RetrofitClient;
@@ -49,7 +51,7 @@ public class StoreActivity extends AppCompatActivity implements StoreItemAdapter
 
     private void getFramesList() {
 
-        Call<StoreFrameModel> call = RetrofitClient.getInstance().myInterFaceData().getFrames(Comman.getInstance().getUser_id(), "2");
+        Call<StoreFrameModel> call = RetrofitClient.getInstance().getAllApiResponse().getFrames(Comman.getInstance().getUser_id(), "2");
         call.enqueue(new Callback<StoreFrameModel>() {
             @Override
             public void onResponse(Call<StoreFrameModel> call, Response<StoreFrameModel> response) {
@@ -91,7 +93,7 @@ public class StoreActivity extends AppCompatActivity implements StoreItemAdapter
     }
 
     private void getWallpapers() {
-        Call<StoreFrameModel> call = RetrofitClient.getInstance().myInterFaceData().getWallpapers(Comman.comman_obj.getUser_id(), "5");
+        Call<StoreFrameModel> call = RetrofitClient.getInstance().getAllApiResponse().getWallpapers(Comman.comman_obj.getUser_id(), "5");
         call.enqueue(new Callback<StoreFrameModel>() {
             @Override
             public void onResponse(Call<StoreFrameModel> call, Response<StoreFrameModel> response) {
@@ -179,15 +181,15 @@ public class StoreActivity extends AppCompatActivity implements StoreItemAdapter
 
     private void getFount() {
 
-        Call<StoreFrameModel> call = RetrofitClient.getInstance().myInterFaceData().getFonts(Comman.getInstance().getUser_id(), "3");
-        call.enqueue(new Callback<StoreFrameModel>() {
+        Call<ResponseFonts> call = RetrofitClient.getInstance().getAllApiResponse().getFonts(Comman.getInstance().getUser_id(), "3");
+        call.enqueue(new Callback<ResponseFonts>() {
             @Override
-            public void onResponse(Call<StoreFrameModel> call, Response<StoreFrameModel> response) {
+            public void onResponse(Call<ResponseFonts> call, Response<ResponseFonts> response) {
 
             }
 
             @Override
-            public void onFailure(Call<StoreFrameModel> call, Throwable t) {
+            public void onFailure(Call<ResponseFonts> call, Throwable t) {
 
             }
         });

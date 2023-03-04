@@ -26,7 +26,7 @@ public class PopularFragment extends Fragment {
         popularBinding = FragmentPopularBinding.inflate(inflater, container, false);
         View root = popularBinding.getRoot();
         ChangeBg();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.my_chat_frame_layout, new MyFragment()).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.my_chat_frame_layout, new JoinedFragment()).commit();
         changebg = "1";
 
         popularBinding.layMy.setOnClickListener(new View.OnClickListener() {
