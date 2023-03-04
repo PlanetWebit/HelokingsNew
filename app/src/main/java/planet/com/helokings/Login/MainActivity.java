@@ -10,9 +10,9 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import planet.com.helokings.Activity.GoLiveActivity;
+import planet.com.helokings.Activity.MomentActivity;
 import planet.com.helokings.Fragment.HomeFragment;
 import planet.com.helokings.Fragment.MeFragment;
-import planet.com.helokings.Fragment.MomentFragment;
 import planet.com.helokings.R;
 import planet.com.helokings.databinding.ActivityMainBinding;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.moment:
-                        MainActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.frame, new MomentFragment()).commit();
+                        startActivity(new Intent(MainActivity.this, MomentActivity.class));
 
                         return true;
                     case R.id.live:

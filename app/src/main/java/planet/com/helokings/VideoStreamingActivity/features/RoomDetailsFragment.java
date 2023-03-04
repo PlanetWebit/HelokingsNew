@@ -42,7 +42,7 @@ public class RoomDetailsFragment extends BottomSheetDialogFragment {
     String authtoken;String userId;String roomid;boolean islocaluserhost;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new BottomSheetDialog(getContext(), R.style.MyTransparentBottomSheetDialogTheme);
+        return new BottomSheetDialog(getContext(), R.style.MyDialogStyle);
     }
 
     public RoomDetailsFragment(String authtoken, String userId, String roomid, boolean islocaluserhost) {
