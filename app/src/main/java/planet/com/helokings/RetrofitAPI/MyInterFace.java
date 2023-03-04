@@ -5,7 +5,6 @@ import okhttp3.RequestBody;
 import planet.com.helokings.Model.LoginModel;
 import planet.com.helokings.Model.OTPModel;
 import planet.com.helokings.Model.RegistrModule;
-import planet.com.helokings.Model.StoreFrameModel;
 import planet.com.helokings.Pojo.userProfile.ResponseProfile;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -39,26 +38,4 @@ public interface MyInterFace {
     @FormUrlEncoded
     @POST("Api_latest/userdata")
     Call<ResponseProfile> getUserProfile(@Field("auth_token") String user_id);
-
-
-    @FormUrlEncoded
-    @POST("Api_latest/frame_api")
-    Call<StoreFrameModel> getFrames(
-            @Field("auth_token") String user_id,
-            @Field("type") String type
-    );
-
-    @FormUrlEncoded
-    @POST("Api_latest/frame_api")
-    Call<StoreFrameModel> getWallpapers(
-            @Field("auth_token") String user_id,
-            @Field("type") String type
-    );
-    @FormUrlEncoded
-    @POST("Api_latest/frame_api")
-    Call<StoreFrameModel> getFonts(
-            @Field("auth_token") String user_id,
-            @Field("type") String type
-    );
-
 }

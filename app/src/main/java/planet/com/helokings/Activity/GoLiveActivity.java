@@ -1,11 +1,14 @@
 package planet.com.helokings.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,8 +16,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -23,8 +28,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
  import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.skydoves.elasticviews.ElasticButton;
 
 import java.io.File;
 
@@ -36,11 +43,24 @@ import im.zego.zegoexpress.entity.ZegoEngineProfile;
 import im.zego.zegoexpress.entity.ZegoRoomConfig;
 import im.zego.zegoexpress.entity.ZegoUser;
 import im.zego.zegoexpress.entity.ZegoVideoConfig;
- import planet.com.helokings.R;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import planet.com.helokings.Login.LoginActivity;
+import planet.com.helokings.Login.MainActivity;
+ import planet.com.helokings.Pojo.RoomData.ResponseRoom;
+import planet.com.helokings.Pojo.RoomDetails.ResponseRoomDetails;
+import planet.com.helokings.R;
+import planet.com.helokings.RetrofitAPI.RetrofitClient;
 import planet.com.helokings.SharedPref.AuthInfoManager;
 import planet.com.helokings.SharedPref.Comman;
 import planet.com.helokings.SharedPref.UserSharePreferancess;
+import planet.com.helokings.VideoStreamingActivity.VideoHostActivity;
 import planet.com.helokings.databinding.ActivityGoLiveBinding;
+import planet.com.helokings.databinding.RuleWarningDialogueBinding;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GoLiveActivity extends AppCompatActivity {
     LinearLayout tvlive, lvvideoparty;
@@ -83,8 +103,12 @@ public class GoLiveActivity extends AppCompatActivity {
 
         activityGoLiveBinding = ActivityGoLiveBinding.inflate(getLayoutInflater());
         View root = activityGoLiveBinding.getRoot();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(root);
+        progressDialog=new ProgressDialog(this);
 
+        getRoom();
 
         previewCanvas = new ZegoCanvas(activityGoLiveBinding.PreviewView);
         previewCanvas.backgroundColor = Color.WHITE;
@@ -180,80 +204,68 @@ public class GoLiveActivity extends AppCompatActivity {
 
                 flag =3;
 
-                activityGoLiveBinding.crPckimage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (checkPermissionForReadExtertalStorage()) {
 
-                            ImagePicker.with(GoLiveActivity.this)
-                                    .crop()
-                                    .compress(1024)
-                                    .maxResultSize(1080, 1080)
-                                    .start();
-
-
-                        } else {
-
-                            requestPermission();
-
-                        }
-                    }
-                });
             }
         });
 
+
+        activityGoLiveBinding.crPckimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkPermission()) {
+                    Toast.makeText(GoLiveActivity.this, "hi", Toast.LENGTH_SHORT).show();
+
+                    ImagePicker.with(GoLiveActivity.this)
+                            .crop()
+                            .compress(1024)
+                            .maxResultSize(1080, 1080)
+                            .start();
+
+
+                } else {
+
+                    requestPermission1();
+
+                }
+            }
+        });
         activityGoLiveBinding.golive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+              Dialog  dialog = new Dialog(GoLiveActivity.this, R.style.MyDialogStyle);
+                RuleWarningDialogueBinding underStandDialogBinding = RuleWarningDialogueBinding.inflate(getLayoutInflater());
+                dialog.setContentView(underStandDialogBinding.getRoot());
 
-                if (flag == 1){
-
-
-
-                   // createRoomLive();
-
-//                if (arrOfStr.length ==3){
-//                    Toast.makeText(GoLiveActivity.this, "UPpoad Room Image", Toast.LENGTH_SHORT).show();
-//                }else{
-//
-//                }
+                underStandDialogBinding.iundersatnd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (flag == 1){
 
 
 
+                            createRoomLive();
+                        }
+                        if (flag == 3){
 
 
-
-
+                            //  createRoom();
 
 
 
 
-                }
-                if (flag == 3){
-
-
-                  //  createRoom();
-
-//                    if (arrOfStr.length ==3){
-//                        Toast.makeText(GoLiveActivity.this, "UPpoad Room Image", Toast.LENGTH_SHORT).show();
-//                    }else{
-//                        createRoom();
-//
-//                    }
+                        }
+                    }
+                });
 
 
 
 
 
+                        dialog.show();
 
 
 
-
-
-
-
-                }
 
 
             }
@@ -262,10 +274,31 @@ public class GoLiveActivity extends AppCompatActivity {
     }
 
 
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+
+
+    public void requestPermission1() {
+
+        ActivityCompat.requestPermissions(GoLiveActivity.this,
+                new String[]{Manifest.permission.READ_MEDIA_VIDEO,Manifest.permission.READ_MEDIA_IMAGES},
+                0);
+
+
+    }
+     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+     }
+
+
+    private boolean checkPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED&&ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED;
+    }
+
 
     public void getAppIDAndUserIDAndAppSign(){
         appID = AuthInfoManager.getInstance().getAppID();
-        userID = "000002";
+        userID = Comman.getInstance().username;
         appSign = AuthInfoManager.getInstance().getAppSign();
     }
     //initial Engine and user
@@ -289,7 +322,7 @@ public class GoLiveActivity extends AppCompatActivity {
     }
     public void LoginRoom(){
         //login room
-        engine.loginRoom("000002", user);
+        engine.loginRoom(Comman.getInstance().username, user);
         //   AppLogger.getInstance().callApi("LoginRoom: %s",roomID);
         //enable the camera
         engine.enableCamera(true);
@@ -300,6 +333,21 @@ public class GoLiveActivity extends AppCompatActivity {
         //engine.startPreview(previewCanvas);
     }
 
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            Uri selectedImage = data.getData();
+            activityGoLiveBinding.crPckimage.setImageURI(selectedImage);
+
+            finalFile = new File(selectedImage.getPath());
+            Toast.makeText(this, ""+finalFile, Toast.LENGTH_SHORT).show();
+            activityGoLiveBinding.crPckimage.setImageURI(selectedImage);
+        }
+    }
 
 
     public void requestPermission() {
@@ -314,6 +362,12 @@ public class GoLiveActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
+
+
 
 
 
@@ -383,19 +437,6 @@ public class GoLiveActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            Uri selectedImage = data.getData();
-            visit_image.setImageURI(selectedImage);
-
-            finalFile = new File(selectedImage.getPath());
-            Toast.makeText(this, ""+finalFile, Toast.LENGTH_SHORT).show();
-            visit_image.setImageURI(selectedImage);
-        }
-    }
 
 
     private static final int READ_STORAGE_PERMISSION_REQUEST_CODE = 41;
@@ -407,4 +448,151 @@ public class GoLiveActivity extends AppCompatActivity {
         return false;
     }
 
+
+    private void createRoomLive() {
+
+
+        progressDialog.show();
+
+        MultipartBody.Part image1 = null;
+
+        roomId = Comman.getInstance().getUsername();
+
+
+        if (activityGoLiveBinding.crPckimage != null) {
+            try {
+                if (finalFile.exists()) {
+
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), finalFile);
+                    image1 = MultipartBody.Part.createFormData("room_image", finalFile.getName(), requestBody);
+                }else{
+
+                    RequestBody attachmentEmpty = RequestBody.create(MediaType.parse("text/plain"), imageurl);
+                    image1 = MultipartBody.Part.createFormData("room_image", "", attachmentEmpty);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+
+
+            RequestBody attachmentEmpty = RequestBody.create(MediaType.parse("text/plain"), imageurl);
+            image1 = MultipartBody.Part.createFormData("room_image", "", attachmentEmpty);
+
+
+        }
+
+        RequestBody user_id = RequestBody.create(MediaType.parse("multipart/form-data"), Comman.getInstance().getUser_id());
+        RequestBody rmNmae = RequestBody.create(MediaType.parse("multipart/form-data"), roomId);
+        RequestBody rmTag = RequestBody.create(MediaType.parse("multipart/form-data"), "i am tag");
+        RequestBody rmAnosnmt = RequestBody.create(MediaType.parse("multipart/form-data"), "i am desc");
+        RequestBody review = RequestBody.create(MediaType.parse("multipart/form-data"), "userReview dvs gre");
+        RequestBody user_level = RequestBody.create(MediaType.parse("multipart/form-data"), "userLevelData 4tfg werger ");
+        RequestBody type = RequestBody.create(MediaType.parse("multipart/form-data"), "live");
+
+        Call<ResponseRoom> moduleCall = RetrofitClient.getInstance().getAllApiResponse()
+                .crRoompartyvideo(user_id, rmNmae, rmTag, rmAnosnmt, image1, review, user_level,type);
+        moduleCall.enqueue(new Callback<ResponseRoom>() {
+            @Override
+            public void onResponse(Call<ResponseRoom> call, Response<ResponseRoom> response) {
+                progressDialog.dismiss();
+                ResponseRoom module = response.body();
+                if (response.isSuccessful()) {
+                    if (module.getStatus().equalsIgnoreCase("true")) {
+
+                        Intent intent =new Intent(GoLiveActivity.this, VideoHostActivity.class);
+                        intent.putExtra("roomid",roomId);
+                        intent.putExtra("roomname",Comman.getInstance().getUsername());
+                        intent.putExtra("roomtype","live");
+                        intent.putExtra("host",true);
+                        finish();
+                        startActivity(intent);
+
+
+                    } else{
+                        if(module.getMsg().equalsIgnoreCase("unauthorized login")){
+                            userSharePreferancess.setStringValue("user_id", "");
+                            userSharePreferancess.setStringValue("id", "");
+                            Comman.getInstance().setUser_id("");
+                            Comman.getInstance().setId("");
+                            Intent intent=new Intent(GoLiveActivity.this, LoginActivity.class);
+                            intent.putExtra("status","1");
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                        progressDialog.dismiss();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRoom> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(GoLiveActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+
+
+
+
+    }
+
+
+
+    private void getRoom() {
+        String roomInfo =Comman.getInstance().getUsername();
+         Call<ResponseRoomDetails> moduleCall = RetrofitClient.getInstance().getAllApiResponse().
+                roomDetailsVideo(Comman.getInstance().getUser_id(),roomInfo,"live");
+        moduleCall.enqueue(new Callback<ResponseRoomDetails>() {
+            @Override
+            public void onResponse(Call<ResponseRoomDetails> call, Response<ResponseRoomDetails> response) {
+                ResponseRoomDetails module = response.body();
+                if (response.isSuccessful()) {
+                     if (module.getStatus().equalsIgnoreCase("true")) {
+
+                         Toast.makeText(GoLiveActivity.this, "sixze "+response.body().getData().size(), Toast.LENGTH_SHORT).show();
+                         if(response.body().getData().size()>0){
+
+                            Toast.makeText(GoLiveActivity.this, "wds", Toast.LENGTH_SHORT).show();
+                            activityGoLiveBinding.roomName.setText(response.body().getData().get(0).getRoomName());
+                            activityGoLiveBinding.roomName.setText("ID: "+response.body().getData().get(0).getRoomId());
+
+                            Toast.makeText(GoLiveActivity.this, ""+response.body().getData().get(0).getRoomImage(), Toast.LENGTH_SHORT).show();
+                            Glide.with(GoLiveActivity.this).load(response.body().getData().get(0).getRoomImage()).placeholder(R.drawable.splash).into(activityGoLiveBinding.crPckimage);
+
+
+                            imageurl=response.body().getData().get(0).getRoomImage();
+                            arrOfStr = imageurl.split("/");
+                            Toast.makeText(GoLiveActivity.this, ""+imageurl, Toast.LENGTH_LONG).show();
+                            Log.e("imgerror",arrOfStr.length+"              "+response.body().getData().get(0).getRoomImage());
+                            if (arrOfStr.length ==3 ){
+                                Toast.makeText(GoLiveActivity.this, "Upload Image", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    } else{
+
+                        Toast.makeText(GoLiveActivity.this,module.getMsg(),Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{
+
+
+                    Toast.makeText(GoLiveActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRoomDetails> call, Throwable t) {
+
+                Log.e("fetchoing imA",""+t.getMessage());
+            }
+        });
+    }
 }

@@ -54,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void getUserProfile() {
-        Call<ResponseProfile> mCall = RetrofitClient.getInstance().myInterFaceData().getUserProfile(Comman.getInstance().getUser_id());
+        Call<ResponseProfile> mCall = RetrofitClient.getInstance().getAllApiResponse().getUserProfile(Comman.getInstance().getUser_id());
         mCall.enqueue(new Callback<ResponseProfile>() {
             @Override
             public void onResponse(Call<ResponseProfile> call, Response<ResponseProfile> response) {

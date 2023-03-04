@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Login() {
         progressDialog.show();
-        Call<LoginModel> call = RetrofitClient.getInstance().myInterFaceData().logindata(loginBinding.etNumber.getText().toString().replace(" ", ""), phone_id, "android");
+        Call<LoginModel> call = RetrofitClient.getInstance().getAllApiResponse().logindata(loginBinding.etNumber.getText().toString().replace(" ", ""), phone_id, "android");
         call.enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {

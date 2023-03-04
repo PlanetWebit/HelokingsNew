@@ -71,7 +71,7 @@ public class OTPActivity extends AppCompatActivity {
 //
     private void OtpVerify() {
         progressDialog.show();
-        retrofit2.Call<OTPModel> otpModuleCall = RetrofitClient.getInstance().myInterFaceData().OtpData(mobile_number, otpactivityBinding.etOtp.getText().toString());
+        retrofit2.Call<OTPModel> otpModuleCall = RetrofitClient.getInstance().getAllApiResponse().OtpData(mobile_number, otpactivityBinding.etOtp.getText().toString());
         otpModuleCall.enqueue(new Callback<OTPModel>() {
             @Override
             public void onResponse(retrofit2.Call<OTPModel> call, Response<OTPModel> response) {

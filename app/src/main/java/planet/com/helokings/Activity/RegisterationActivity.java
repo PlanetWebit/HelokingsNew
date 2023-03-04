@@ -128,7 +128,7 @@ public class RegisterationActivity extends AppCompatActivity {
         RequestBody gen = RequestBody.create(MediaType.parse("multipart/form-data"),  gender);
 
 
-        Call<RegistrModule> call = RetrofitClient.getInstance().myInterFaceData().userUpdate(id,name,bios, gen,image1);
+        Call<RegistrModule> call = RetrofitClient.getInstance().getAllApiResponse().userUpdate(id,name,bios, gen,image1);
         call.enqueue(new Callback<RegistrModule>() {
             @Override
             public void onResponse(Call<RegistrModule> call, Response<RegistrModule> response) {
