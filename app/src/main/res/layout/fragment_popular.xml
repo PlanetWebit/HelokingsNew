@@ -234,7 +234,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:tintMode="@color/dark_blue"
-                                android:src="@drawable/persan" />
+                                android:src="@mipmap/user" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -280,6 +280,7 @@
             android:weightSum="1">
 
             <LinearLayout
+                android:id="@+id/lay_my"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -288,23 +289,28 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_my"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/my"
                     android:textColor="@color/grayDark"
                     android:textSize="15dp" />
 
+
                 <View
+                    android:id="@+id/view_my"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_margin="5dp"
-                    android:background="@color/grayDark"
-                    android:visibility="invisible" />
+                    android:background="@color/white"
+                    android:visibility="visible" />
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_joined"
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -313,6 +319,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_joined"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Joined"
@@ -320,6 +327,7 @@
                     android:textSize="15dp" />
 
                 <View
+                    android:id="@+id/view_joined"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_margin="5dp"
@@ -329,6 +337,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_recent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -337,6 +346,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_recent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -345,17 +355,18 @@
                     android:textSize="15dp" />
 
                 <View
+                    android:id="@+id/view_recent"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_margin="5dp"
-                    android:background="@color/grayDark"
-
-                    android:visibility="invisible" />
+                    android:background="@color/white"
+                    android:visibility="visible" />
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_following"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -364,6 +375,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_following"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -372,30 +384,21 @@
                     android:textSize="15dp" />
 
                 <View
+                    android:id="@+id/view_following"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_margin="5dp"
-                    android:background="@color/grayDark"
-
-                    android:visibility="invisible" />
-
-
+                    android:background="@color/white"
+                    android:visibility="visible" />
             </LinearLayout>
 
 
         </LinearLayout>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/pop_rcv"
+        <FrameLayout
+            android:id="@+id/my_chat_frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/new_rl1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:visibility="invisible" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/new_rl1"/>
 
 
     </RelativeLayout>
