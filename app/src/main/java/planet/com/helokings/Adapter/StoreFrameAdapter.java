@@ -43,7 +43,7 @@ public class StoreFrameAdapter extends RecyclerView.Adapter<StoreFrameAdapter.Vi
         holder.framItemBinding.frameCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(v.getContext(),R.style.BottamDialogStyle);
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(v.getContext(),R.style.MyDialogStyle);
                 bottomSheetDialog.setContentView(R.layout.frame_bottom_sheet_item);
                 bottomSheetDialog.show();
 
