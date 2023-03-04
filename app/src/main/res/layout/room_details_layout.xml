@@ -1,0 +1,242 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+     android:gravity="center"
+    android:background="@drawable/btn_bg"
+     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="@dimen/font_15dp"
+         android:layout_marginTop="10dp"
+        android:weightSum="3"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+             app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/transparentsqaure"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:id="@+id/imagecontainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/people" />
+
+                <ImageView
+                    android:id="@+id/videoFrame1"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp" />
+            </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_gravity="center"
+
+            android:padding="@dimen/font_15dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                  android:orientation="vertical"
+                 app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
+            <TextView
+                android:id="@+id/roomName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello Username"
+                android:textSize="13dp"
+                android:padding="@dimen/font_15dp"
+                 android:textStyle="normal"
+                android:textColor="@color/black"/>
+            <TextView
+                android:padding="@dimen/font_15dp"
+
+                android:id="@+id/roomID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID: 2345678"
+                android:textSize="14sp"
+                 android:textStyle="normal"
+                android:textColor="@color/black"/>
+
+                <TextView
+                     android:id="@+id/ownerblock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:padding="@dimen/font_15dp"
+                    android:layout_toEndOf="@+id/imagecontainer"
+
+                     android:background="@drawable/buttonred"
+
+                    android:textStyle="bold"
+                    android:layout_marginLeft="6dp"
+                    android:textSize="12sp"
+                    android:foregroundGravity="center"
+
+                    android:text=" Owner "/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:id="@+id/rOccupied"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+
+            android:gravity="center"
+            android:id="@+id/imagecontainer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/splash" />
+
+            <ImageView
+                android:id="@+id/videoFrame"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/imagecontainer1"
+            android:foregroundGravity="center"
+            android:gravity="left|center"
+            android:layout_marginLeft="10dp"
+            android:text="Abhishek"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imagee"
+            android:layout_width="25dp"
+            android:layout_margin="4dp"
+            android:layout_below="@+id/tv_user_name"
+            android:src="@drawable/splash"
+            android:layout_toEndOf="@+id/imagecontainer1"
+
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/userlevel"
+
+            android:gravity="center"
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toEndOf="@+id/imagee"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/buttontransparentforsamllbackground"
+            android:textColor="@color/white"
+            android:layout_marginLeft="6dp"
+            android:foregroundGravity="center"
+            android:textSize="8sp"
+
+            android:text="Lv. 4"/>
+
+
+        <TextView
+            android:id="@+id/userlevel3"
+
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toEndOf="@+id/userlevel"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+
+
+            android:layout_marginTop="6dp"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginLeft="6dp"
+
+            android:text="Lv. 4"/>
+
+
+
+        <TextView
+            android:id="@+id/userlevel2"
+            android:layout_marginTop="6dp"
+
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toEndOf="@+id/userlevel3"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:backgroundTint="#B2A711C8"
+            android:textSize="8sp"
+
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginLeft="6dp"
+            android:foregroundGravity="center"
+
+            android:text="VIP"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
