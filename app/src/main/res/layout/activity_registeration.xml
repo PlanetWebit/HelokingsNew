@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Profile"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/white"
             android:textSize="15sp" />
 
     </androidx.appcompat.widget.Toolbar>
