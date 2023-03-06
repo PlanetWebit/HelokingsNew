@@ -276,7 +276,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
         // Start publishing stream
         engine.startPublishingStream(publishStreamID);
         // Start preview and set local preview
-        engine.startPlayingStream(publishStreamID);
+      //  engine.startPlayingStream(publishStreamID);
 
 
     }
@@ -583,6 +583,12 @@ public class AudioStreamingActivity extends AppCompatActivity {
         // Start playing stream
         engine.startPlayingStream(publishStreamID);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     @Override

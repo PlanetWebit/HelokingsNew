@@ -9,6 +9,7 @@ import planet.com.helokings.Model.StoreFrameModel;
 import planet.com.helokings.Pojo.Fonts.ResponseFonts;
 import planet.com.helokings.Pojo.Frames.ResponseFrames;
 import planet.com.helokings.Pojo.HomeData.ResponseHomedata;
+import planet.com.helokings.Pojo.MyRooms.ResponseRoomdata;
 import planet.com.helokings.Pojo.RoomData.ResponseRoom;
 import planet.com.helokings.Pojo.RoomDetails.ResponseRoomDetails;
 import planet.com.helokings.Pojo.userProfile.ResponseProfile;
@@ -80,6 +81,9 @@ public interface MyInterFace {
     Call<ResponseHomedata> getStreamData(@Field("auth_token") String auth_token, @Field("type") String type);
 
 
+    @FormUrlEncoded
+    @POST("Api_latest/host_room_list")
+    Call<ResponseRoomdata> roomList(@Field("auth_token") String user_id);
 
     @FormUrlEncoded
     @POST("Api_latest/frame_api")
@@ -87,5 +91,21 @@ public interface MyInterFace {
             @Field("auth_token") String user_id,
             @Field("type") String type
     );
+
+
+    @Multipart
+    @POST("Api_latest/room_create")
+    Call<ResponseRoom> crRoom(@Part("auth_token") RequestBody auth_token,
+                              @Part("room_name") RequestBody room_name,
+                              @Part("room_tag") RequestBody room_tag,
+                              @Part("room_desc") RequestBody room_desc,
+                              @Part MultipartBody.Part profile_pic,
+                              @Part("review_status") RequestBody review_status,
+                              @Part("coin") RequestBody coin);
+
+    @FormUrlEncoded
+    @POST("Api_latest/home_page")
+    Call<ResponseHomedata> getHomedata(@Field("auth_token") String auth_token);
+
 
 }

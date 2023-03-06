@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-         android:layout_width="250dp"
+         android:layout_width="180dp"
     android:id="@+id/textBubble"
      android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -31,15 +31,15 @@ android:background="@drawable/btn_bgtextbubble"
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileImage"
-                    android:layout_width="40dp"
+                    android:layout_width="30dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/splash" />
 
                 <ImageView
                     android:id="@+id/videoFrame"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp" />
             </RelativeLayout>
 
             <TextView
@@ -72,6 +72,8 @@ android:background="@drawable/btn_bgtextbubble"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
+
+
             <ImageView
                 android:id="@+id/imagee"
                 android:layout_width="25dp"
@@ -79,7 +81,6 @@ android:background="@drawable/btn_bgtextbubble"
                 android:layout_below="@+id/tv_user_name"
                 android:src="@drawable/splash"
                 android:layout_toEndOf="@+id/imagecontainer"
-
                 android:layout_height="20dp" />
 
             <TextView

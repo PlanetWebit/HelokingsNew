@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/vip_bg"
+            app:tint="@color/black" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Room"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+ /> 
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_login"
+        android:layout_below="@+id/line">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_height="100dp">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/room_image"
+                    android:visibility="invisible"
+                    app:civ_border_color="@color/dark_blue"
+                    app:civ_border_width="2dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+                <ImageView
+                    android:id="@+id/chooseImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="25dp"
+                    android:src="@drawable/splash"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/transparent"
+                    app:tint="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/pick_image"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/cr_pckimage"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/cameraswitch"
+                        android:padding="5dp"
+                        android:src="@drawable/camera" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/l_roomdata"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Room Name"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"/>
+                <EditText
+
+                    android:singleLine="true"
+                    android:id="@+id/room_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:backgroundTint="@color/white"
+                    android:background="@drawable/typebuttonback"
+                    android:textSize="15dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter Room Name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Room Tag"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"/>
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:id="@+id/chatTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="Chat"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/white"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:background="@drawable/btn_bg"/>
+
+                        <TextView
+                            android:id="@+id/danceTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="Dance"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/grayDark"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:background="@drawable/btn_bg"/>
+
+                        <TextView
+                            android:id="@+id/musicTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="Music"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/grayDark"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:background="@drawable/btn_bg"/>
+
+                        <TextView
+                            android:id="@+id/shayaritag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="Shayari"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/grayDark"
+                            android:layout_marginLeft="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:background="@drawable/btn_bg"/>
+                        <TextView
+                            android:id="@+id/enjoyTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="Enjoy"
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="12dp"
+                            android:textColor="@color/grayDark"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:background="@drawable/btn_bg"/>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Room Description"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/room_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/white"
+                    android:background="@drawable/typebuttonback"
+                    android:gravity="top"
+                    android:hint="Description of the room"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:maxLines="5"
+                    android:padding="10dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <com.skydoves.elasticviews.ElasticButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="10dp"
+        app:button_duration="200"
+        app:button_scale="0.93"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:text="Create Room"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+</RelativeLayout>
