@@ -3,7 +3,6 @@ package planet.com.helokings.Login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
-import planet.com.helokings.Activity.RegisterationActivity;
+import planet.com.helokings.Activity.ProfileActivity;
 import planet.com.helokings.Model.OTPModel;
 import planet.com.helokings.R;
 import planet.com.helokings.RetrofitAPI.RetrofitClient;
@@ -30,7 +29,6 @@ public class OTPActivity extends AppCompatActivity {
     String user_id = "", mobile_number = "", otp = "", token = "";
     ProgressDialog progressDialog;
     UserSharePreferancess userSharePreferancess;
-
 
 
     @Override
@@ -55,7 +53,7 @@ public class OTPActivity extends AppCompatActivity {
         Toast.makeText(this, "" + otp, Toast.LENGTH_LONG).show();
 
 
-        userSharePreferancess=new UserSharePreferancess(this);
+        userSharePreferancess = new UserSharePreferancess(this);
 
         otpactivityBinding.etLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +66,8 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
     }
-//
+
+    //
     private void OtpVerify() {
         progressDialog.show();
         retrofit2.Call<OTPModel> otpModuleCall = RetrofitClient.getInstance().getAllApiResponse().OtpData(mobile_number, otpactivityBinding.etOtp.getText().toString());
@@ -103,9 +102,8 @@ public class OTPActivity extends AppCompatActivity {
                             finish();
                             Log.e("Comman", Comman.getInstance().getUser_id());
 
-                        }
-                        else {
-                            Intent newUser = new Intent(OTPActivity.this, RegisterationActivity.class);
+                        } else {
+                            Intent newUser = new Intent(OTPActivity.this, ProfileActivity.class);
                             newUser.putExtra("user_id", module.getToken());
                             startActivity(newUser);
                             finish();
