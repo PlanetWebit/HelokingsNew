@@ -84,7 +84,7 @@ public class VideoHostActivity extends AppCompatActivity {
     Long appID;
     String userID;
     String appSign;
-   public static String roomID;
+   public   String roomID;
     String publishStreamID;
     String playStreamID;
     ZegoExpressEngine engine;
@@ -115,11 +115,6 @@ public class VideoHostActivity extends AppCompatActivity {
         activityUserVideoBinding = ActivityVideoHostBinding.inflate(getLayoutInflater());
         // getting our root layout in our view.
         View view = activityUserVideoBinding.getRoot();
-        roomID=getIntent().getStringExtra("roomid");
-        userID=getIntent().getStringExtra("roomname");
-        ishostornot=getIntent().getBooleanExtra("host",false);
-
-
 
 
         setContentView(view);
@@ -155,11 +150,18 @@ public class VideoHostActivity extends AppCompatActivity {
         setDefaultValue();
         setCreateEngineButtonEvent();
         setLoginRoomButtonEvent();
+
+        zegoCanvas = new ZegoCanvas(activityUserVideoBinding.PreviewView);
+        zegoCanvas.viewMode = ZegoViewMode.ASPECT_FILL;
+
         if (ishostornot){
+            Toast.makeText(this, "cc", Toast.LENGTH_SHORT).show();
             setStartPublishingButton();
+
 
         }else{
             setStartPlayingButton();
+
             activityUserVideoBinding.joincallforuser.setVisibility(View.VISIBLE);
 
         }
@@ -244,8 +246,8 @@ public class VideoHostActivity extends AppCompatActivity {
         publishStreamID=getIntent().getStringExtra("roomid");
         userID=getIntent().getStringExtra("roomname");
         roomType=getIntent().getStringExtra("roomtype");
-        zegoCanvas = new ZegoCanvas(activityUserVideoBinding.PreviewView);
-        zegoCanvas.viewMode = ZegoViewMode.ASPECT_FILL;
+        ishostornot=getIntent().getBooleanExtra("host",false);
+
 
 
     }
@@ -320,7 +322,7 @@ public class VideoHostActivity extends AppCompatActivity {
 
     }
     public void setStartPublishingButton(){
-
+        Toast.makeText(this, "sas"+publishStreamID, Toast.LENGTH_SHORT).show();
         if (engine == null) {
              return;
         }
@@ -679,6 +681,7 @@ public void getProfile(){
 
     public void setStartPlayingButton(){
 
+        Toast.makeText(this, "sc          "+publishStreamID, Toast.LENGTH_SHORT).show();
         if (engine == null) {
              return;
         }

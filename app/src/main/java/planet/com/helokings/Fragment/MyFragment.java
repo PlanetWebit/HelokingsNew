@@ -52,8 +52,9 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(getContext(), AudioStreamingActivity.class);
-                intent.putExtra("roomid",  Comman.getInstance().getUsername());
-                intent.putExtra("roomname",  roomName);
+                intent.putExtra("roomId",  Comman.getInstance().getUsername());
+                intent.putExtra("userid", Comman.getInstance().getUsername());
+                intent.putExtra("username", Comman.getInstance().getName());
                 intent.putExtra("roomimage", roomimage);
                 intent.putExtra("roomtype","audio");
                 intent.putExtra("host",true);
@@ -80,8 +81,7 @@ public class MyFragment extends Fragment {
                             roomStatus=1;
                             roomName=response.body().getData().get(0).getRoomName();
                             roomimage=response.body().getData().get(0).getRoomImage();
-                            Toast.makeText(getContext(), ""+roomName, Toast.LENGTH_SHORT).show();
-                            fragmentMyBinding.gotoroom.setVisibility(View.VISIBLE);
+                             fragmentMyBinding.gotoroom.setVisibility(View.VISIBLE);
                             fragmentMyBinding.lvCreateRoom.setVisibility(View.GONE);
                             fragmentMyBinding.username.setText(roomName);
                             Glide.with(getContext()).load(roomimage).into(fragmentMyBinding.crPckimage);
@@ -96,8 +96,7 @@ public class MyFragment extends Fragment {
                         roomStatus=0;
 
 
-                         Toast.makeText(getActivity(),module.getMsg(),Toast.LENGTH_LONG).show();
-                    }
+                     }
                 }else{
                 }
 
@@ -105,7 +104,6 @@ public class MyFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseRoomdata> call, Throwable t) {
-                Toast.makeText(getActivity(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

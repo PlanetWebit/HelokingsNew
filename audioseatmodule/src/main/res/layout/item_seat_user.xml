@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/roomOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lSeat"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_shadow"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/chair" />
+
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="8sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/iv_lock"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/border_shadow"
+                android:src="@drawable/icon_lock"
+                app:tint="@color/white" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rOccupied"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:visibility="gone">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/occupiedSeat"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/user" />
+
+            <ImageView
+                android:id="@+id/videoFrame"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+
+            <ImageView
+                android:id="@+id/iv_mic_off"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/border_shadow"
+                android:backgroundTint="#85FFFFFF"
+                android:src="@drawable/icon_mic_state_off"
+                android:visibility="gone"
+                app:tint="@color/black" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/speakerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/roomOne"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_avatar_talking"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/liveshow_music_ethereal_select"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/user"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar_talking"
+            app:layout_constraintEnd_toEndOf="@id/iv_avatar_talking"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar_talking"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar_talking" />
+
+        <ImageView
+            android:id="@+id/iv_owner_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/icon_owner"
+            app:layout_constraintEnd_toEndOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <ImageView
+            android:id="@+id/iv_seat"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/gray_round_rect"
+            android:src="@drawable/icon_seat"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toEndOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <ImageView
+            android:id="@+id/iv_join"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/gray_round_rect"
+            android:src="@drawable/icon_join"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toEndOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4.5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="#ff000000"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar"
+            tools:text="Ross🌹Ross🌹" />
+
+        <ImageView
+            android:id="@+id/ic_network_status"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginStart="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_user_name"
+            app:layout_constraintStart_toEndOf="@id/tv_user_name"
+            app:layout_constraintTop_toTopOf="@id/tv_user_name"
+            tools:src="@drawable/icon_network_good" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

@@ -136,7 +136,7 @@ public class RecentFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseHomedata> call, Throwable t) {
-                Toast.makeText(getActivity(),t.getMessage().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),t.getMessage().toString(),Toast.LENGTH_LONG).show();
             }
         });
 

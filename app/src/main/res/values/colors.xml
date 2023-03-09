@@ -11,5 +11,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
-
+    <color name="whitetransparent">#00FFFFFF</color>
+    <color name="blacktranspart">#7F000000</color>
+    <color name="blacktranspart1">#CE000000</color>
 </resources>

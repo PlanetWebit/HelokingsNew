@@ -47,9 +47,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Helokings"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+         tools:targetApi="31">
         <activity
-            android:name=".Activity.RegisterationActivity"
+            android:name=".Activity.ProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -63,6 +63,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+
+        <activity
+            android:name=".VideoStreamingActivity.AudioStreamingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
         <activity
             android:name=".Login.LoginTypeActivity"
             android:exported="false">
@@ -107,6 +118,15 @@
         </activity>
         <activity
             android:name=".Login.MainActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
+        <activity
+            android:name=".Activity.CreateAudioRoomActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

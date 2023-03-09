@@ -187,7 +187,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/adminrecylerseat"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     />
 
 
@@ -254,10 +254,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="25dp"
-        android:id="@+id/giftImage"
+         android:id="@+id/giftImage"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
+
+          app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
 
@@ -299,12 +299,12 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_toRightOf="@+id/iv_im"
 
-            android:id="@+id/miconoff"
+            android:id="@+id/incomingcall"
             android:padding="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/buttontransparent"
+            android:background="@drawable/rect_rounded"
 
             android:src="@drawable/micon"
             app:circleRadius="14dp"
@@ -313,7 +313,7 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_toRightOf="@+id/miconoff"
+            android:layout_toRightOf="@+id/incomingcall"
 
             android:id="@+id/filterss"
             android:padding="7dp"

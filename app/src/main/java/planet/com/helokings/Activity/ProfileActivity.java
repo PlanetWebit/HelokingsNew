@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         progressDialog.getWindow().setGravity(Gravity.RELATIVE_LAYOUT_DIRECTION);
-        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Intent in = getIntent();
         user_id = in.getStringExtra("user_id");
 
@@ -137,8 +137,6 @@ public class ProfileActivity extends AppCompatActivity {
                 RegistrModule module = response.body();
                 if (response.isSuccessful()){
                     if (module.getStatus().equalsIgnoreCase("true")){
-                        userSharePreferancess.setStringValue("user_id",user_id);
-                        Comman.getInstance().setUser_id(user_id);
 
                         userSharePreferancess.setStringValue("id", module.getId());
                         Comman.getInstance().setId(module.getId());
@@ -155,6 +153,7 @@ public class ProfileActivity extends AppCompatActivity {
                         finish();
                     }
                     else {
+
                         progressDialog.dismiss();
                         Toast.makeText(ProfileActivity.this, "" + module.getMsg(), Toast.LENGTH_SHORT).show();
                     }

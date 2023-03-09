@@ -91,15 +91,17 @@ public class AudioplrFdataAdapter extends RecyclerView.Adapter<AudioplrFdataAdap
 
 
             Intent intent=new Intent(context, AudioStreamingActivity.class);
-            intent.putExtra("roomid",roomID);
-            intent.putExtra("roomname", Comman.getInstance().getUsername());
+            intent.putExtra("roomId",roomID);
+            intent.putExtra("userid", Comman.getInstance().getUsername());
+            intent.putExtra("username", Comman.getInstance().getName());
             intent.putExtra("host",false);
             intent.putExtra("roomtype","audio");
-
-
             context.startActivity(intent);
 
 
 
     }
+
+
+
 }

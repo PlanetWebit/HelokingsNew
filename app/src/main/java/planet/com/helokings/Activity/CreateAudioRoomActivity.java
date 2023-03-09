@@ -317,7 +317,8 @@ public class CreateAudioRoomActivity extends AppCompatActivity {
                         roomId = Comman.getInstance().getUsername();
                         Intent intent =new Intent(CreateAudioRoomActivity.this, AudioStreamingActivity.class);
                         intent.putExtra("roomid",roomId);
-                        intent.putExtra("roomname",Comman.getInstance().getUsername());
+                        intent.putExtra("userid", Comman.getInstance().getUsername());
+                        intent.putExtra("username", Comman.getInstance().getName());
                         intent.putExtra("roomtype","audio");
                         intent.putExtra("host",true);
                         finish();
