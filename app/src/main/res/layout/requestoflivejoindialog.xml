@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="400dp"
-     android:orientation="vertical">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_set_title"
@@ -39,7 +38,7 @@
             android:id="@+id/switch_close_seat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/SCBSwitch"/>
+            android:theme="@style/SCBSwitch" />
     </LinearLayout>
 
     <TextView
@@ -48,17 +47,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-         android:text="Requested User"
+        android:text="Requested User"
         android:textColor="#ff1b1b1b"
         android:textSize="12sp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userRequestJoinCAll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:layout_marginTop="4dp"
-        android:id="@+id/userRequestJoinCAll"/>
-
+        android:layout_marginTop="4dp" />
 
 
 </LinearLayout>
