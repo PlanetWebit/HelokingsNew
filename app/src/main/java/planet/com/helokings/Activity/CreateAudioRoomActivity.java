@@ -62,7 +62,7 @@ public class CreateAudioRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_audio_room);
 
-        setTheme(R.style.Theme_HeloKings);
+        setTheme(R.style.Theme_Helokings);
         setContentView(R.layout.activity_create_audio_room);
 
         progressDialog = new ProgressDialog(CreateAudioRoomActivity.this, R.style.MyDialogStyle);

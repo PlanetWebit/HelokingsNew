@@ -2,7 +2,9 @@ package planet.com.helokings.RetrofitAPI;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import planet.com.helokings.Model.AllPostModel;
 import planet.com.helokings.Model.LoginModel;
+import planet.com.helokings.Model.MomentAllPostModel;
 import planet.com.helokings.Model.OTPModel;
 import planet.com.helokings.Model.OtpModule;
 import planet.com.helokings.Model.RegistrModule;
@@ -160,4 +162,12 @@ public interface MyInterFace {
                                         @Part("type") RequestBody type);
 
 
- }
+
+    @FormUrlEncoded
+    @POST("Api_latest/post_list")
+    Call<MomentAllPostModel> allPostData(
+            @Field("auth_token") String auth_token,
+            @Field("starting_point") String starting_point
+    );
+
+}
