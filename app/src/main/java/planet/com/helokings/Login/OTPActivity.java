@@ -78,10 +78,13 @@ public class OTPActivity extends AppCompatActivity {
                 OTPModel module = response.body();
                 if (response.isSuccessful()) {
                     if (module.getStatus().equalsIgnoreCase("true")) {
+                      //  userSharePreferancess.setStringValue("user_id", module.getToken());
+                       // Comman.getInstance().setUser_id(module.getToken());
+                        userSharePreferancess.setStringValue("token", module.getToken());
+                        Comman.getInstance().setToken(module.getToken());
 
                         if (module.getProfileComplete().equalsIgnoreCase("1")) {
-                            userSharePreferancess.setStringValue("user_id", module.getToken());
-                            Comman.getInstance().setUser_id(module.getToken());
+
 
                             userSharePreferancess.setStringValue("id", module.getUserId());
                             Comman.getInstance().setId(module.getUserId());
@@ -93,8 +96,6 @@ public class OTPActivity extends AppCompatActivity {
                             Comman.getInstance().setName(module.getNickName());
 
 
-                            userSharePreferancess.setStringValue("token", module.getToken());
-                            Comman.getInstance().setToken(module.getToken());
 
 
                             Intent oldUser = new Intent(OTPActivity.this, MainActivity.class);

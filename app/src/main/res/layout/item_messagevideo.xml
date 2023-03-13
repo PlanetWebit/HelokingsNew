@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-         android:layout_width="250dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textBubble"
-     android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-android:background="@drawable/btn_bgtextbubble"
-        android:layout_marginTop="10dp">
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/btn_bgtextbubble">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@drawable/transparentsqaurechat"
+        android:orientation="vertical"
 
         android:padding="4dp">
 
 
         <RelativeLayout
-            android:layout_margin="5dp"
             android:id="@+id/rOccupied"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
 
 
             <RelativeLayout
@@ -43,30 +42,30 @@ android:background="@drawable/btn_bgtextbubble"
             </RelativeLayout>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/ownerblock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_toEndOf="@+id/imagecontainer"
-
-                android:padding="2dp"
-                android:background="@drawable/buttonred"
-                android:gravity="left|center"
-                android:textStyle="bold"
                 android:layout_marginLeft="6dp"
-                android:textSize="8sp"
-                android:foregroundGravity="center"
+                android:layout_toEndOf="@+id/imagecontainer"
 
-                android:text="Owner"/>
+                android:background="@drawable/buttonred"
+                android:foregroundGravity="center"
+                android:gravity="left|center"
+                android:padding="2dp"
+                android:text="Owner"
+                android:textSize="8sp"
+                android:textStyle="bold"
+
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/ownerblock"
                 android:foregroundGravity="center"
                 android:gravity="left|center"
-                android:layout_marginLeft="10dp"
                 android:text="Abhishek"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -75,85 +74,84 @@ android:background="@drawable/btn_bgtextbubble"
             <ImageView
                 android:id="@+id/imagee"
                 android:layout_width="25dp"
-                android:layout_margin="4dp"
+                android:layout_height="20dp"
                 android:layout_below="@+id/tv_user_name"
-                android:src="@drawable/splash"
+                android:layout_margin="4dp"
                 android:layout_toEndOf="@+id/imagecontainer"
 
-                android:layout_height="20dp" />
+                android:src="@drawable/splash" />
 
             <TextView
                 android:id="@+id/userlevel"
 
-                android:gravity="center"
-                android:layout_below="@+id/tv_user_name"
-                android:layout_toEndOf="@+id/imagee"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_below="@+id/tv_user_name"
 
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:background="@drawable/buttontransparentforsamllbackground"
-                  android:textColor="@color/white"
                 android:layout_marginLeft="6dp"
-                android:foregroundGravity="center"
-                android:textSize="8sp"
+                android:layout_marginTop="6dp"
+                android:layout_toEndOf="@+id/imagee"
 
-                android:text="Lv. 4"/>
+                android:background="@drawable/buttontransparentforsamllbackground"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:text="Lv. 4"
+                android:textColor="@color/white"
+
+                android:textSize="8sp" />
 
 
             <TextView
                 android:id="@+id/userlevel3"
 
-                android:layout_below="@+id/tv_user_name"
-                android:layout_toEndOf="@+id/userlevel"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="8sp"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
 
-
+                android:layout_below="@+id/tv_user_name"
+                android:layout_marginLeft="6dp"
                 android:layout_marginTop="6dp"
+                android:layout_toEndOf="@+id/userlevel"
                 android:background="@drawable/button"
                 android:gravity="center"
-                 android:textColor="@color/white"
-                android:layout_marginLeft="6dp"
+                android:paddingLeft="5dp"
 
-                android:text="Lv. 4"/>
 
+                android:paddingTop="2dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:text="Lv. 4"
+                android:textColor="@color/white"
+
+                android:textSize="8sp" />
 
 
             <TextView
                 android:id="@+id/userlevel2"
-                android:layout_marginTop="6dp"
-
-                android:layout_below="@+id/tv_user_name"
-                android:layout_toEndOf="@+id/userlevel3"
-
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:backgroundTint="#B2A711C8"
-                android:textSize="8sp"
+                android:layout_below="@+id/tv_user_name"
 
-                android:background="@drawable/button"
-                android:gravity="center"
-                 android:textColor="@color/white"
                 android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_toEndOf="@+id/userlevel3"
+                android:background="@drawable/button"
+                android:backgroundTint="#B2A711C8"
                 android:foregroundGravity="center"
+                android:gravity="center"
+                android:paddingLeft="5dp"
 
-                android:text="VIP"/>
+                android:paddingTop="2dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:text="VIP"
+                android:textColor="@color/white"
+
+                android:textSize="8sp" />
 
         </RelativeLayout>
 
@@ -163,19 +161,17 @@ android:background="@drawable/btn_bgtextbubble"
             android:orientation="vertical">
 
 
-
             <TextView
                 android:id="@+id/tv_send_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="7dp"
                 android:layout_marginLeft="@dimen/font_15dp"
-                 android:layout_marginRight="5dp"
-                 android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:padding="7dp"
                 android:text="dsbds d heb cb ch  "
                 android:textColor="@color/white"
-                android:textSize="11sp"
-              />
+                android:textSize="11sp" />
 
 
         </LinearLayout>

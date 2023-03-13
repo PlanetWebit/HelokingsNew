@@ -24,4 +24,8 @@ public class RetrofitClient {
         return retrofit.create(MyInterFace.class);
     }
 
+    public NewMyInterface getnewResponseData(){
+        return retrofit.create(NewMyInterface.class);
+    }
+
 }

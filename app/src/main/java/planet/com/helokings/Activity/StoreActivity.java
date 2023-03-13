@@ -10,10 +10,12 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import planet.com.helokings.Adapter.FountAdapter;
 import planet.com.helokings.Adapter.StoreFrameAdapter;
 import planet.com.helokings.Adapter.StoreItemAdapter;
 import planet.com.helokings.Login.LoginActivity;
@@ -45,8 +47,15 @@ public class StoreActivity extends AppCompatActivity implements StoreItemAdapter
         toolbar();
         contenttextView();
         getFramesList();
-        ;
-        //Log.e("token", "" + Comman.comman_obj.getToken());
+
+        storeBinding.tvMytools.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StoreActivity.this,MyToolsActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void getFramesList() {
@@ -165,7 +174,7 @@ public class StoreActivity extends AppCompatActivity implements StoreItemAdapter
 
     @Override
     public void contentdata(StoreModel[] storeModels, int position) {
-        Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
 
         if (position == 0) {
             getFramesList();
@@ -180,18 +189,46 @@ public class StoreActivity extends AppCompatActivity implements StoreItemAdapter
     }
 
     private void getFount() {
+        Toast.makeText(getApplicationContext(),"soon",Toast.LENGTH_SHORT).show();
+    }
+
+/*
+    private void getFount() {
 
         Call<ResponseFonts> call = RetrofitClient.getInstance().getAllApiResponse().getFonts(Comman.getInstance().getUser_id(), "3");
         call.enqueue(new Callback<ResponseFonts>() {
             @Override
             public void onResponse(Call<ResponseFonts> call, Response<ResponseFonts> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equalsIgnoreCase("true")) {
+                        FountAdapter adapter = new FountAdapter(StoreActivity.this, response.body().getData());
+                        storeBinding.storeContentRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.HORIZONTAL, false));
+                        storeBinding.storeContentRecyclerView.setAdapter(adapter);
+
+                    } else {
+                        if (response.body().getMsg().equalsIgnoreCase("unauthorized login")) {
+                            userSharePreferancess.setStringValue("user_id", "");
+                            userSharePreferancess.setStringValue("id", "");
+                            userSharePreferancess.setStringValue("username", "");
+                            Comman.getInstance().setUser_id("");
+                            Comman.getInstance().setId("");
+                            Comman.getInstance().setUsername("");
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            intent.putExtra("status", "1");
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                        Toast.makeText(getApplicationContext(), response.body().getMsg(), Toast.LENGTH_LONG).show();
+                    }
+                }
 
             }
 
             @Override
             public void onFailure(Call<ResponseFonts> call, Throwable t) {
-
+                Toast.makeText(StoreActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+*/
 }
