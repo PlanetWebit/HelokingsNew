@@ -72,5 +72,6 @@
     <string name="id_68972093">id_68972093</string>
     <string name="uploading_video">Uploading Video</string>
     <string name="please_wait_video_is_uploading">Please Wait while uploading video</string>
+    <string name="the_wheat_position_has_been_locked">This seat has been closed.</string>
 
 </resources>
