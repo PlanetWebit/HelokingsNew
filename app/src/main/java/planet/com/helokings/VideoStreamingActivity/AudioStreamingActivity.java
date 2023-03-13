@@ -29,8 +29,6 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.fenchtose.tooltip.Tooltip;
-import com.fenchtose.tooltip.TooltipAnimation;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
