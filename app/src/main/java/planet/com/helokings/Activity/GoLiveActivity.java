@@ -156,7 +156,7 @@ public class GoLiveActivity extends AppCompatActivity {
                 activityGoLiveBinding.videoliveclickback.setBackgroundDrawable(ContextCompat.getDrawable(GoLiveActivity.this, R.drawable.vip_bg) );
                 activityGoLiveBinding.videopartyclickback.setBackgroundDrawable(ContextCompat.getDrawable(GoLiveActivity.this, R.drawable.circletrasnaoarent) );
 
-                activityGoLiveBinding.crPckimage.setClickable(false);
+                activityGoLiveBinding.crPckimage.setClickable(true);
                 activityGoLiveBinding.videopartypart1.setVisibility(View.GONE);
 
 
@@ -209,7 +209,7 @@ public class GoLiveActivity extends AppCompatActivity {
         activityGoLiveBinding.crPckimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkPermission()) {
+
                     Toast.makeText(GoLiveActivity.this, "hi", Toast.LENGTH_SHORT).show();
 
                     ImagePicker.with(GoLiveActivity.this)
@@ -219,11 +219,7 @@ public class GoLiveActivity extends AppCompatActivity {
                             .start();
 
 
-                } else {
 
-                    requestPermission1();
-
-                }
             }
         });
         activityGoLiveBinding.golive.setOnClickListener(new View.OnClickListener() {
@@ -274,22 +270,11 @@ public class GoLiveActivity extends AppCompatActivity {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
 
 
-    public void requestPermission1() {
 
-        ActivityCompat.requestPermissions(GoLiveActivity.this,
-                new String[]{Manifest.permission.READ_MEDIA_VIDEO,Manifest.permission.READ_MEDIA_IMAGES},
-                0);
-
-
-    }
-     @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-     }
-
-
-    private boolean checkPermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED&&ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED;
+        Toast.makeText(GoLiveActivity.this,"hh",Toast.LENGTH_LONG).show();
     }
 
 
@@ -350,11 +335,13 @@ public class GoLiveActivity extends AppCompatActivity {
     public void requestPermission() {
         String[] PERMISSIONS_STORAGE = {
                 "android.permission.CAMERA",
-                "android.permission.RECORD_AUDIO"};
+                "android.permission.RECORD_AUDIO",
+                "android.permission.READ_EXTERNAL_STORAGE"};
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, "android.permission.CAMERA") != PackageManager.PERMISSION_GRANTED
-                    || ContextCompat.checkSelfPermission(this, "android.permission.RECORD_AUDIO") != PackageManager.PERMISSION_GRANTED) {
+                    || ContextCompat.checkSelfPermission(this, "android.permission.RECORD_AUDIO") != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(this, "android.permission.READ_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(PERMISSIONS_STORAGE, 101);
             }
         }
@@ -453,7 +440,7 @@ public class GoLiveActivity extends AppCompatActivity {
 
         MultipartBody.Part image1 = null;
 
-        roomId = Comman.getInstance().getUsername();
+        roomId = Comman.getInstance().getUsername()+"_live";
 
 
         if (activityGoLiveBinding.crPckimage != null) {

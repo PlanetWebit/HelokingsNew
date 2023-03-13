@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONObject;
 
@@ -32,20 +33,26 @@ import im.zego.zegoexpress.callback.IZegoApiCalledEventHandler;
 
 import im.zego.zegoexpress.callback.IZegoEventHandler;
 
+import im.zego.zegoexpress.callback.IZegoIMSendCustomCommandCallback;
 import im.zego.zegoexpress.constants.ZegoPlayerState;
 
 import im.zego.zegoexpress.constants.ZegoPublisherState;
 
+import im.zego.zegoexpress.constants.ZegoRoomState;
 import im.zego.zegoexpress.constants.ZegoRoomStateChangedReason;
 
 import im.zego.zegoexpress.constants.ZegoScenario;
 
+import im.zego.zegoexpress.constants.ZegoUpdateType;
 import im.zego.zegoexpress.constants.ZegoViewMode;
 
 import im.zego.zegoexpress.entity.ZegoCanvas;
 
 import im.zego.zegoexpress.entity.ZegoEngineProfile;
 
+import im.zego.zegoexpress.entity.ZegoRoomConfig;
+import im.zego.zegoexpress.entity.ZegoRoomExtraInfo;
+import im.zego.zegoexpress.entity.ZegoStream;
 import im.zego.zegoexpress.entity.ZegoUser;
 
 import io.socket.client.IO;
@@ -71,11 +78,13 @@ import retrofit2.Response;
 
 public class VideoHostActivity extends AppCompatActivity {
 
+    ZegoRoomConfig zegoRoomConfig = new ZegoRoomConfig();
+    ArrayList<ZegoUser> userList1 = new ArrayList<>();
 
     Long appID;
     String userID;
     String appSign;
-   public static String roomID;
+   public   String roomID;
     String publishStreamID;
     String playStreamID;
     ZegoExpressEngine engine;
@@ -106,11 +115,6 @@ public class VideoHostActivity extends AppCompatActivity {
         activityUserVideoBinding = ActivityVideoHostBinding.inflate(getLayoutInflater());
         // getting our root layout in our view.
         View view = activityUserVideoBinding.getRoot();
-        roomID=getIntent().getStringExtra("roomid");
-        userID=getIntent().getStringExtra("roomname");
-        ishostornot=getIntent().getBooleanExtra("host",false);
-
-
 
 
         setContentView(view);
@@ -146,13 +150,38 @@ public class VideoHostActivity extends AppCompatActivity {
         setDefaultValue();
         setCreateEngineButtonEvent();
         setLoginRoomButtonEvent();
+
+        zegoCanvas = new ZegoCanvas(activityUserVideoBinding.PreviewView);
+        zegoCanvas.viewMode = ZegoViewMode.ASPECT_FILL;
+
         if (ishostornot){
+            Toast.makeText(this, "cc", Toast.LENGTH_SHORT).show();
             setStartPublishingButton();
+
 
         }else{
             setStartPlayingButton();
 
+            activityUserVideoBinding.joincallforuser.setVisibility(View.VISIBLE);
+
         }
+
+        activityUserVideoBinding.joincallforuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                engine.sendCustomCommand(roomID, "Join Chta",userList1 , new IZegoIMSendCustomCommandCallback() {
+                    @Override
+                    public void onIMSendCustomCommandResult(int errorCode) {
+                        if (errorCode == 0) {
+                            Toast.makeText(VideoHostActivity.this, "sebd s"+userID.toString(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Custom command failed to send
+                        }
+
+                    }
+                });
+            }
+        });
 
 
         mSocket.on("roomData", onReceive);
@@ -217,8 +246,8 @@ public class VideoHostActivity extends AppCompatActivity {
         publishStreamID=getIntent().getStringExtra("roomid");
         userID=getIntent().getStringExtra("roomname");
         roomType=getIntent().getStringExtra("roomtype");
-        zegoCanvas = new ZegoCanvas(activityUserVideoBinding.PreviewView);
-        zegoCanvas.viewMode = ZegoViewMode.ASPECT_FILL;
+        ishostornot=getIntent().getBooleanExtra("host",false);
+
 
 
     }
@@ -288,12 +317,12 @@ public class VideoHostActivity extends AppCompatActivity {
         // Create user
         ZegoUser user = new ZegoUser(userID);
 
-        // Begin to login room
-        engine.loginRoom(roomID, user);
+        zegoRoomConfig.isUserStatusNotify=true;
+        engine.loginRoom(roomID, user,zegoRoomConfig);
 
     }
     public void setStartPublishingButton(){
-
+        Toast.makeText(this, "sas"+publishStreamID, Toast.LENGTH_SHORT).show();
         if (engine == null) {
              return;
         }
@@ -318,44 +347,95 @@ public class VideoHostActivity extends AppCompatActivity {
     public void setEventHandler(){
 
 
-         ZegoExpressEngine.getEngine().setEventHandler(new IZegoEventHandler() {
+
+
+        engine.setEventHandler(new IZegoEventHandler() {
             @Override
-            public void onPublisherStateUpdate(String streamID, ZegoPublisherState state, int errorCode, JSONObject extendedData) {
-                super.onPublisherStateUpdate(streamID, state, errorCode, extendedData);
-                if (state == ZegoPublisherState.PUBLISHING) {
-                   // startPublishingButton.setText(GetEmojiStringByUnicode(ZegoViewUtil.checkEmoji) + getString(R.string.start_publishing));
-                } else if (state == ZegoPublisherState.NO_PUBLISH){
-                   // startPublishingButton.setText(GetEmojiStringByUnicode(ZegoViewUtil.crossEmoji) + getString(R.string.start_publishing));
-                }
+            public void onRoomStateUpdate(String roomID, ZegoRoomState state, int errorCode, JSONObject extendedData) {
+                super.onRoomStateUpdate(roomID, state, errorCode, extendedData);
+                Toast.makeText(VideoHostActivity.this, "1", Toast.LENGTH_SHORT).show();
+
             }
 
-            @Override
-            public void onPlayerStateUpdate(String streamID, ZegoPlayerState state, int errorCode, JSONObject extendedData) {
-                super.onPlayerStateUpdate(streamID, state, errorCode, extendedData);
-                if (streamID.equals(playStreamID)){
-                    if (state == ZegoPlayerState.PLAYING) {
-                       // startPlayingButton.setText(GetEmojiStringByUnicode(ZegoViewUtil.checkEmoji) + getString(R.string.start_playing));
-                    } else if (state == ZegoPlayerState.NO_PLAY){
-                       // startPlayingButton.setText(GetEmojiStringByUnicode(ZegoViewUtil.crossEmoji) + getString(R.string.start_playing));
-                    }
-                }
-            }
 
             @Override
             public void onRoomStateChanged(String roomID, ZegoRoomStateChangedReason reason, int errorCode, JSONObject extendedData) {
-                if (roomID.equals(roomID)){
-                    if(reason == ZegoRoomStateChangedReason.LOGINED || reason == ZegoRoomStateChangedReason.RECONNECTED)
-                    {
-                        //loginRoomButton.setText(GetEmojiStringByUnicode(ZegoViewUtil.checkEmoji)+getString(R.string.login_room));
+                super.onRoomStateChanged(roomID, reason, errorCode, extendedData);
+
+            }
+
+            @Override
+            public void onRoomUserUpdate(String roomID, ZegoUpdateType updateType, ArrayList<ZegoUser> userList) {
+                super.onRoomUserUpdate(roomID,updateType,userList);
+
+
+                for (ZegoUser user : userList) {
+
+                    //userList1.add(user);
+                    if (roomID.equals(userID)){
+                           userList1.add(user);
+
                     }
-                    else
-                    {
-                       // loginRoomButton.setText(GetEmojiStringByUnicode(ZegoViewUtil.crossEmoji)+getString(R.string.login_room));
-                    }
+
                 }
+                Toast.makeText(VideoHostActivity.this, "size    "+userList.size(), Toast.LENGTH_SHORT).show();
+
+            }
+            @Override
+            public void onRoomOnlineUserCountUpdate(String roomID, int count) {
+                super.onRoomOnlineUserCountUpdate(roomID, count);
+
+            }
+
+            @Override
+            public void onRoomStreamUpdate(String roomID, ZegoUpdateType updateType, ArrayList<ZegoStream> streamList, JSONObject extendedData) {
+                super.onRoomStreamUpdate(roomID, updateType, streamList, extendedData);
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onRoomStreamExtraInfoUpdate(String roomID, ArrayList<ZegoStream> streamList) {
+                super.onRoomStreamExtraInfoUpdate(roomID, streamList);
+
+
+
+            }
+
+            @Override
+            public void onRoomExtraInfoUpdate(String roomID, ArrayList<ZegoRoomExtraInfo> roomExtraInfoList) {
+                super.onRoomExtraInfoUpdate(roomID, roomExtraInfoList);
+
+            }
+
+            @Override
+            public void onRoomTokenWillExpire(String roomID, int remainTimeInSecond) {
+                super.onRoomTokenWillExpire(roomID, remainTimeInSecond);
+
+            }
+
+            @Override
+            public void onPublisherStateUpdate(String streamID, ZegoPublisherState state, int errorCode, JSONObject extendedData) {
+                super.onPublisherStateUpdate(streamID, state, errorCode, extendedData);
+
+            }
+            @Override
+            public void onIMRecvCustomCommand(String roomID, ZegoUser fromUser, String command) {
+                super.onIMRecvCustomCommand(roomID, fromUser, command);
+
+
+                Toast.makeText(VideoHostActivity.this, "Rci e nmeesasa", Toast.LENGTH_SHORT).show();
+
+
+
             }
 
         });
+
     }
     private String GetEmojiStringByUnicode(int unicode){
         return new String(Character.toChars(unicode));
@@ -592,8 +672,16 @@ public void getProfile(){
         }
     });
 }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+       finish();
+    }
+
     public void setStartPlayingButton(){
 
+        Toast.makeText(this, "sc          "+publishStreamID, Toast.LENGTH_SHORT).show();
         if (engine == null) {
              return;
         }
@@ -608,6 +696,24 @@ public void getProfile(){
         joinSocket("leave");
         engine.logoutRoom(roomID);
         engine.destroyEngine(null);
+
+    }
+
+
+    BottomSheetDialog mBottomSheetDialog  ;
+
+
+    public void RequestOfLivejoin(){
+        mBottomSheetDialog = new BottomSheetDialog(getSupportActionBar().getThemedContext());
+
+
+        mBottomSheetDialog.getDismissWithAnimation();
+        View sheetView = getLayoutInflater().inflate(R.layout.requestoflivejoindialog, null);
+
+
+        mBottomSheetDialog.setContentView(sheetView);
+
+
 
     }
 }

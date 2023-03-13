@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+         android:layout_width="180dp"
     android:id="@+id/textBubble"
-    android:layout_width="250dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="10dp"
-    android:background="@drawable/btn_bgtextbubble">
+     android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+android:background="@drawable/btn_bgtextbubble"
+        android:layout_marginTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/transparentsqaurechat"
         android:orientation="vertical"
+        android:background="@drawable/transparentsqaurechat"
 
         android:padding="4dp">
 
 
         <RelativeLayout
+            android:layout_margin="5dp"
             android:id="@+id/rOccupied"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_height="wrap_content">
 
 
             <RelativeLayout
@@ -30,128 +31,130 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileImage"
-                    android:layout_width="40dp"
+                    android:layout_width="30dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/splash" />
 
                 <ImageView
                     android:id="@+id/videoFrame"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp" />
             </RelativeLayout>
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/ownerblock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_toEndOf="@+id/imagecontainer"
+                 android:layout_toEndOf="@+id/imagecontainer"
 
-                android:background="@drawable/buttonred"
-                android:foregroundGravity="center"
-                android:gravity="left|center"
                 android:padding="2dp"
-                android:text="Owner"
-                android:textSize="8sp"
+                android:background="@drawable/buttonred"
+                android:gravity="left|center"
                 android:textStyle="bold"
+                android:layout_marginLeft="6dp"
+                android:textSize="8sp"
+                android:foregroundGravity="center"
 
-                android:visibility="gone" />
+                android:text="Owner"/>
 
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/ownerblock"
                 android:foregroundGravity="center"
                 android:gravity="left|center"
+                android:layout_marginLeft="10dp"
                 android:text="Abhishek"
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
+
+
             <ImageView
                 android:id="@+id/imagee"
                 android:layout_width="25dp"
-                android:layout_height="20dp"
-                android:layout_below="@+id/tv_user_name"
                 android:layout_margin="4dp"
+                android:layout_below="@+id/tv_user_name"
+                android:src="@drawable/splash"
                 android:layout_toEndOf="@+id/imagecontainer"
-
-                android:src="@drawable/splash" />
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/userlevel"
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_below="@+id/tv_user_name"
-
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="6dp"
                 android:layout_toEndOf="@+id/imagee"
 
-                android:background="@drawable/buttontransparentforsamllbackground"
-                android:foregroundGravity="center"
-                android:gravity="center"
-                android:paddingLeft="5dp"
-                android:paddingTop="2dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="2dp"
-                android:text="Lv. 4"
-                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
 
-                android:textSize="8sp" />
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:background="@drawable/buttontransparentforsamllbackground"
+                  android:textColor="@color/white"
+                android:layout_marginLeft="6dp"
+                android:foregroundGravity="center"
+                android:textSize="8sp"
+
+                android:text="Lv. 4"/>
 
 
             <TextView
                 android:id="@+id/userlevel3"
 
+                android:layout_below="@+id/tv_user_name"
+                android:layout_toEndOf="@+id/userlevel"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="8sp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
 
-                android:layout_below="@+id/tv_user_name"
-                android:layout_marginLeft="6dp"
+
                 android:layout_marginTop="6dp"
-                android:layout_toEndOf="@+id/userlevel"
                 android:background="@drawable/button"
                 android:gravity="center"
-                android:paddingLeft="5dp"
+                 android:textColor="@color/white"
+                android:layout_marginLeft="6dp"
 
+                android:text="Lv. 4"/>
 
-                android:paddingTop="2dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="2dp"
-                android:text="Lv. 4"
-                android:textColor="@color/white"
-
-                android:textSize="8sp" />
 
 
             <TextView
                 android:id="@+id/userlevel2"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_user_name"
-
-                android:layout_marginLeft="6dp"
                 android:layout_marginTop="6dp"
+
+                android:layout_below="@+id/tv_user_name"
                 android:layout_toEndOf="@+id/userlevel3"
-                android:background="@drawable/button"
-                android:backgroundTint="#B2A711C8"
-                android:foregroundGravity="center"
-                android:gravity="center"
-                android:paddingLeft="5dp"
 
-                android:paddingTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
                 android:paddingBottom="2dp"
-                android:text="VIP"
-                android:textColor="@color/white"
+                android:backgroundTint="#B2A711C8"
+                android:textSize="8sp"
 
-                android:textSize="8sp" />
+                android:background="@drawable/button"
+                android:gravity="center"
+                 android:textColor="@color/white"
+                android:layout_marginLeft="6dp"
+                android:foregroundGravity="center"
+
+                android:text="VIP"/>
 
         </RelativeLayout>
 
@@ -161,17 +164,19 @@
             android:orientation="vertical">
 
 
+
             <TextView
                 android:id="@+id/tv_send_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/font_15dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="10dp"
                 android:padding="7dp"
+                android:layout_marginLeft="@dimen/font_15dp"
+                 android:layout_marginRight="5dp"
+                 android:layout_marginBottom="10dp"
                 android:text="dsbds d heb cb ch  "
                 android:textColor="@color/white"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+              />
 
 
         </LinearLayout>

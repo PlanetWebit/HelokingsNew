@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import planet.com.helokings.Activity.ProfileActivity;
 import planet.com.helokings.Model.OTPModel;
+import planet.com.helokings.Model.OtpModule;
 import planet.com.helokings.R;
 import planet.com.helokings.RetrofitAPI.RetrofitClient;
 import planet.com.helokings.SharedPref.Comman;
@@ -25,7 +26,7 @@ import retrofit2.Response;
 
 
 public class OTPActivity extends AppCompatActivity {
-    ActivityOtpactivityBinding otpactivityBinding;
+    ActivityOtpactivityBinding OTPActivityBinding;
     String user_id = "", mobile_number = "", otp = "", token = "";
     ProgressDialog progressDialog;
     UserSharePreferancess userSharePreferancess;
@@ -34,8 +35,8 @@ public class OTPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        otpactivityBinding = ActivityOtpactivityBinding.inflate(getLayoutInflater());
-        setContentView(otpactivityBinding.getRoot());
+        OTPActivityBinding = ActivityOtpactivityBinding.inflate(getLayoutInflater());
+        setContentView(OTPActivityBinding.getRoot());
 
         userSharePreferancess = new UserSharePreferancess(this);
         progressDialog = new ProgressDialog(OTPActivity.this, R.style.MyDialogStyle);
@@ -55,12 +56,12 @@ public class OTPActivity extends AppCompatActivity {
 
         userSharePreferancess = new UserSharePreferancess(this);
 
-        otpactivityBinding.etLogin.setOnClickListener(new View.OnClickListener() {
+        OTPActivityBinding.etLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (Validation()) {
-                    OtpVerify();
+                    otpVerify();
 
                 }
             }
@@ -68,21 +69,20 @@ public class OTPActivity extends AppCompatActivity {
     }
 
     //
-    private void OtpVerify() {
+
+    private void otpVerify() {
         progressDialog.show();
-        retrofit2.Call<OTPModel> otpModuleCall = RetrofitClient.getInstance().getAllApiResponse().OtpData(mobile_number, otpactivityBinding.etOtp.getText().toString());
-        otpModuleCall.enqueue(new Callback<OTPModel>() {
+        Call<OtpModule> otpModuleCall = RetrofitClient.getInstance().getAllApiResponse().userOtp(mobile_number,
+                OTPActivityBinding.etOtp.getText().toString());
+        otpModuleCall.enqueue(new Callback<OtpModule>() {
             @Override
-            public void onResponse(retrofit2.Call<OTPModel> call, Response<OTPModel> response) {
+            public void onResponse(Call<OtpModule> call, Response<OtpModule> response) {
                 progressDialog.dismiss();
-                OTPModel module = response.body();
+                OtpModule module = response.body();
                 if (response.isSuccessful()) {
                     if (module.getStatus().equalsIgnoreCase("true")) {
-                      //  userSharePreferancess.setStringValue("user_id", module.getToken());
-                       // Comman.getInstance().setUser_id(module.getToken());
-                        userSharePreferancess.setStringValue("token", module.getToken());
-                        Comman.getInstance().setToken(module.getToken());
-
+                        userSharePreferancess.setStringValue("user_id", module.getToken());
+                        Comman.getInstance().setUser_id(module.getToken());
                         if (module.getProfileComplete().equalsIgnoreCase("1")) {
 
 
@@ -96,6 +96,11 @@ public class OTPActivity extends AppCompatActivity {
                             Comman.getInstance().setName(module.getNickName());
 
 
+                            userSharePreferancess.setStringValue("token", module.getToken());
+                            Comman.getInstance().setToken(module.getToken());
+
+
+
 
 
                             Intent oldUser = new Intent(OTPActivity.this, MainActivity.class);
@@ -103,10 +108,9 @@ public class OTPActivity extends AppCompatActivity {
                             finish();
                             Log.e("Comman", Comman.getInstance().getUser_id());
 
-                        } else {
+                        } else  {
                             Intent newUser = new Intent(OTPActivity.this, ProfileActivity.class);
-                            newUser.putExtra("user_id", module.getToken());
-                            startActivity(newUser);
+                             startActivity(newUser);
                             finish();
                         }
                     } else {
@@ -118,24 +122,23 @@ public class OTPActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<OTPModel> call, Throwable t) {
+            public void onFailure(Call<OtpModule> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(OTPActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
-
     }
 
     private boolean Validation() {
-        if (otpactivityBinding.etOtp.getText().toString().equalsIgnoreCase("")) {
-            otpactivityBinding.etOtp.setError("Please enter otp");
-            otpactivityBinding.etOtp.requestFocus();
+        if (OTPActivityBinding.etOtp.getText().toString().equalsIgnoreCase("")) {
+            OTPActivityBinding.etOtp.setError("Please enter otp");
+            OTPActivityBinding.etOtp.requestFocus();
             return false;
 
-        } else if (otpactivityBinding.etOtp.getText().toString().length() < 4) {
-            otpactivityBinding.etOtp.setError("Please enter valid otp ");
-            otpactivityBinding.etOtp.requestFocus();
+        } else if (OTPActivityBinding.etOtp.getText().toString().length() < 4) {
+            OTPActivityBinding.etOtp.setError("Please enter valid otp ");
+            OTPActivityBinding.etOtp.requestFocus();
             return false;
         }
 

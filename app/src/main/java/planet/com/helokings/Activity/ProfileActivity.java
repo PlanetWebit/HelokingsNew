@@ -36,6 +36,9 @@ public class ProfileActivity extends AppCompatActivity {
     private UserSharePreferancess userSharePreferancess;
     private Context context;
     String user_id = "", gender = "";
+    String[] gender1 = {"Gender", "Male", "Female", "Other"};
+    String[] Region = {"Region", "India", "PAK", "Nepal", "China", "AFG"};
+    String[] State = {"State", "India", "Mumbai", "Agra", "UK", "Delhi"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +54,15 @@ public class ProfileActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         progressDialog.getWindow().setGravity(Gravity.RELATIVE_LAYOUT_DIRECTION);
-        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Intent in = getIntent();
         user_id = in.getStringExtra("user_id");
+
+
+
+
+
+
 
         profileactivityBinding.layGender.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,8 +137,6 @@ public class ProfileActivity extends AppCompatActivity {
                 RegistrModule module = response.body();
                 if (response.isSuccessful()){
                     if (module.getStatus().equalsIgnoreCase("true")){
-                        userSharePreferancess.setStringValue("user_id",user_id);
-                        Comman.getInstance().setUser_id(user_id);
 
                         userSharePreferancess.setStringValue("id", module.getId());
                         Comman.getInstance().setId(module.getId());
@@ -147,6 +153,7 @@ public class ProfileActivity extends AppCompatActivity {
                         finish();
                     }
                     else {
+
                         progressDialog.dismiss();
                         Toast.makeText(ProfileActivity.this, "" + module.getMsg(), Toast.LENGTH_SHORT).show();
                     }
@@ -241,5 +248,59 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
+/*
+    private void StateSpinner() {
+        ArrayAdapter state_adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, State);
+        profileactivityBinding.stateSpinner.setAdapter(state_adapter);
+        profileactivityBinding.stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String sdata = parent.getAdapter().getItem(position).toString();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    private void RegionSpinner() {
+        ArrayAdapter spinnder = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, Region);
+        profileactivityBinding.regionSpinner.setAdapter(spinnder);
+
+        profileactivityBinding.regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String rdata = parent.getAdapter().getItem(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    private void genderSpinner() {
+        ArrayAdapter spinnerAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, gender);
+        profileactivityBinding.spinnerGender.setAdapter(spinnerAdapter);
+        profileactivityBinding.spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String ldata = parent.getAdapter().getItem(position).toString();
+              *//*  ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                ((TextView) parent.getChildAt(0)).setTextSize(15);
+                ((TextView) parent.getChildAt(0)).setGravity(Gravity.CENTER_VERTICAL);*//*
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }*/
 }

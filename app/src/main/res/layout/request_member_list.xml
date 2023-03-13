@@ -1,0 +1,180 @@
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     android:padding="10dp"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <RelativeLayout
+        android:layout_margin="5dp"
+        android:id="@+id/rOccupied"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:id="@+id/imagecontainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/splash" />
+
+            <ImageView
+                android:id="@+id/videoFrame"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/ownerblock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/imagecontainer"
+
+            android:padding="2dp"
+            android:background="@drawable/buttonred"
+            android:gravity="left|center"
+            android:textStyle="bold"
+            android:layout_marginLeft="6dp"
+            android:textSize="8sp"
+            android:foregroundGravity="center"
+
+            android:text="Owner"/>
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ownerblock"
+            android:foregroundGravity="center"
+             android:layout_marginLeft="10dp"
+            android:text="Abhishekgrehy eth rjty"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/userlevel"
+
+            android:gravity="center"
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toEndOf="@+id/imagecontainer"
+
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/buttontransparentforsamllbackground"
+            android:textColor="@color/white"
+            android:layout_marginLeft="6dp"
+            android:foregroundGravity="center"
+            android:textSize="8sp"
+
+            android:text="Lv. 4"/>
+
+
+        <TextView
+            android:id="@+id/userlevel3"
+
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toEndOf="@+id/userlevel"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+
+
+            android:layout_marginTop="6dp"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginLeft="6dp"
+
+            android:text="Lv. 4"/>
+
+
+
+        <TextView
+            android:id="@+id/userlevel2"
+            android:layout_marginTop="6dp"
+
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toEndOf="@+id/userlevel3"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:backgroundTint="#B2A711C8"
+            android:textSize="8sp"
+
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginLeft="6dp"
+            android:foregroundGravity="center"
+
+            android:text="VIP"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_margin="5dp"
+        android:id="@+id/rOccupied1"
+        android:gravity="right|center"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+           android:orientation="horizontal"
+
+
+
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="20dp"
+                android:src="@drawable/chair"
+                app:tint="@color/red" />
+            <ImageView
+                android:id="@+id/approve"
+                android:layout_width="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="20dp"
+                android:src="@drawable/share"
+                app:tint="@color/dark_blue" />
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

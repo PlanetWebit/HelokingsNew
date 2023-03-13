@@ -1,6 +1,5 @@
 package planet.com.helokings.VideoStreamingActivity.chat;
 
-import static planet.com.helokings.VideoStreamingActivity.VideoHostActivity.roomID;
 
 import android.content.Context;
 import android.util.Log;
@@ -50,30 +49,30 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         holder.setIsRecyclable(false);
         ChatMessagePojo message = messageList.get(position);
 
-        boolean isHostMessage = Objects.equals(message.getUser_id(),roomID );
-        Context context = holder.itemView.getContext();
+         Context context = holder.itemView.getContext();
         holder.tvSendMessage.setText(message.getMessage());
+        holder.tvUserName.setText(message.getName());
 
         Log.e("testrec",""+message.getMessage()) ;
-        if(message.getName().equalsIgnoreCase("")||message.getName()==null) {
-            if (isHostMessage) {
-                holder.tvUserName.setText(message.getName());
-            }else{
-                holder.tvUserName.setText(message.getName());
-            }
-
-        }else{
-            if (isHostMessage) {
-                holder.tvUserName.setText(message.getName());
-            }else{
-                holder.tvUserName.setText(message.getName());
-            }
-
-        }
-        if (isHostMessage){
-            holder.ownerblock.setVisibility(View.VISIBLE);
-
-        }
+//        if(message.getName().equalsIgnoreCase("")||message.getName()==null) {
+//            if (isHostMessage) {
+//                holder.tvUserName.setText(message.getName());
+//            }else{
+//                holder.tvUserName.setText(message.getName());
+//            }
+//
+//        }else{
+//            if (isHostMessage) {
+//                holder.tvUserName.setText(message.getName());
+//            }else{
+//                holder.tvUserName.setText(message.getName());
+//            }
+//
+//        }
+//        if (isHostMessage){
+//            holder.ownerblock.setVisibility(View.VISIBLE);
+//
+//        }
 
 
 
