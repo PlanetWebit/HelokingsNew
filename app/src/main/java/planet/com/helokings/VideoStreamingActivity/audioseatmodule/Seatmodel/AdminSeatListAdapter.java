@@ -54,7 +54,7 @@ public class AdminSeatListAdapter extends RecyclerView.Adapter<AdminSeatListAdap
     @NonNull
     @Override
     public SeatListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_seat_user, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_seat_admin, parent, false);
         return new SeatListHolder(view);
     }
 
@@ -67,7 +67,8 @@ public class AdminSeatListAdapter extends RecyclerView.Adapter<AdminSeatListAdap
         holder.itemView.setOnClickListener(v -> {
             if (onSeatClickListener != null) {
 
-                onSeatClickListener.onClick(seatList.get(position),v);
+                Toast.makeText(context, "ff  "+speakerSeatModel.status, Toast.LENGTH_SHORT).show();
+                 onSeatClickListener.onClick(seatList.get(position),v);
             }
         });
 
@@ -98,19 +99,24 @@ public class AdminSeatListAdapter extends RecyclerView.Adapter<AdminSeatListAdap
                     holder.videoFrame.setVisibility(View.GONE);
                 }
 
-                if(speakerSeatModel.room_role!=null) {
-                    if (speakerSeatModel.room_role.equalsIgnoreCase("Admin")) {
-                        holder.speakerName.setText("Admin");
-                        holder.speakerName.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.speakerName.setVisibility(View.INVISIBLE);
-                        holder.speakerName.setText("");
-                    }
-                }else{
-                    holder.speakerName.setVisibility(View.INVISIBLE);
-                    holder.speakerName.setText("");
-                }
+//                if(speakerSeatModel.room_role!=null) {
+//
+//                    if (speakerSeatModel.room_role.equalsIgnoreCase("Admin")) {
+//                        holder.speakerName.setText("Admin");
+//                        holder.speakerName.setVisibility(View.VISIBLE);
+//                    } else {
+//                        holder.speakerName.setVisibility(View.INVISIBLE);
+//                        holder.speakerName.setText("User");
+//                    }
+//
+//                }else{
+//                    holder.speakerName.setVisibility(View.INVISIBLE);
+//                    holder.speakerName.setText("");
+//                }
+                holder.speakerName.setText("Username");
+
                 holder.lSeat.setVisibility(View.GONE);
+                holder.speakerName.setVisibility(View.VISIBLE);
                 holder.ivLock.setVisibility(View.GONE);
                 holder.rOccupied.setVisibility(View.VISIBLE);
 
@@ -156,6 +162,7 @@ public class AdminSeatListAdapter extends RecyclerView.Adapter<AdminSeatListAdap
                 break;
             case Untaken:
                 holder.toOffSeatUI();
+                Toast.makeText(context, "adsfdfv", Toast.LENGTH_SHORT).show();
 
                 holder.ivLock.setVisibility(View.GONE);
                  holder.lSeat.setVisibility(View.VISIBLE);

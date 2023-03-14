@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -29,6 +30,8 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.fenchtose.tooltip.Tooltip;
+import com.fenchtose.tooltip.TooltipAnimation;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
@@ -59,6 +62,7 @@ import im.zego.zegoexpress.entity.ZegoUser;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import planet.com.helokings.VideoStreamingActivity.audioseatmodule.Adapter.LiveNowAdapter;
 import planet.com.helokings.VideoStreamingActivity.audioseatmodule.Seatmodel.AdminSeatListAdapter;
 import planet.com.helokings.VideoStreamingActivity.audioseatmodule.Seatmodel.SeatListAdapter;
 
@@ -75,6 +79,7 @@ import planet.com.helokings.VideoStreamingActivity.chat.ChatMessagePojo;
 import planet.com.helokings.VideoStreamingActivity.chat.IMInputDialog;
 import planet.com.helokings.VideoStreamingActivity.chat.MessageListAdapter;
 import planet.com.helokings.VideoStreamingActivity.features.RoomDetailsFragment;
+import planet.com.helokings.VideoStreamingActivity.roomUserDetails.UserProfileFragment;
 import planet.com.helokings.VideoStreamingActivity.userlists.SeatRequestListAdapter;
 import planet.com.helokings.databinding.ActivityAudioStreamingBinding;
 import planet.com.helokings.databinding.SeatqueuelistandapplyforseatBinding;
@@ -104,12 +109,13 @@ public class AudioStreamingActivity extends AppCompatActivity {
     String playStreamID;
     ZegoExpressEngine engine;
     ActivityAudioStreamingBinding activityUserAudioBinding;
-     IMInputDialog imInputDialog;
+    IMInputDialog imInputDialog;
     public String profileFrame;
     public String profileImage;
     boolean ishostornot;
     String roomType;
-     private Socket mSocket;
+    UserProfileFragment userProfileFragment;
+    private Socket mSocket;
     {
         try {
             mSocket = IO.socket("http://139.84.168.15:3000");
@@ -176,22 +182,17 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
 
+
+
+
         activityUserAudioBinding.liveHostIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RoomDetailsFragment roomDetailsFragment =
-                        new RoomDetailsFragment(Comman.getInstance().getUser_id(),userID,roomId,ishostornot);
-                roomDetailsFragment.show(getSupportFragmentManager(),"");
+                userProfileFragment=new UserProfileFragment(userlist,roomId,ishostornot);
 
+                    userProfileFragment.show(getSupportFragmentManager(),"profiles");
             }
         });
-
-
-
-
-
-
-
         activityUserAudioBinding.ivIm.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -234,15 +235,28 @@ public class AudioStreamingActivity extends AppCompatActivity {
         });
 
 
-        activityUserAudioBinding.incomingcall.setOnClickListener(new View.OnClickListener() {
+        activityUserAudioBinding.miconoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 seatapplyBottonDaolog.show();
+
+                if (engine.isMicrophoneMuted()){
+
+                Glide.with(AudioStreamingActivity.this).load("").placeholder(R.drawable.micb128).into(activityUserAudioBinding.miconoff);
+                engine.muteMicrophone(false);
+
+                }else{
+                    engine.muteMicrophone(true);
+                    Glide.with(AudioStreamingActivity.this).load("").placeholder(R.drawable.micoff).into(activityUserAudioBinding.miconoff);
+
+                }
+
             }
         });
 
-    }
 
+
+    }
+    LiveNowAdapter userDataAdapter;
     ZegoUser zegoUseradmin;
 
     public void setDefaultValue(){
@@ -325,6 +339,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
         setApiCalledResult();
         setEventHandler();
 
+
     }
     ZegoUser userman  ;
 
@@ -335,10 +350,10 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
             return;
         }
-          userman = new ZegoUser(userID,username);
+        userman = new ZegoUser(userID,username);
 
-         // Begin to login room
-         zegoRoomConfig.isUserStatusNotify=true;
+        // Begin to login room
+        zegoRoomConfig.isUserStatusNotify=true;
         engine.loginRoom(roomId, userman,zegoRoomConfig);
 
     }
@@ -351,7 +366,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
         // Start publishing stream
         engine.startPublishingStream(publishStreamID);
         // Start preview and set local preview
-      //  engine.startPlayingStream(publishStreamID);
+        //  engine.startPlayingStream(publishStreamID);
 
 
     }
@@ -398,6 +413,14 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
                 }
 
+                activityUserAudioBinding.showAudiencecount.setText(String.valueOf(userlist.size()));
+
+
+                userDataAdapter = new LiveNowAdapter(AudioStreamingActivity.this,userList);
+                LinearLayoutManager llmb = new LinearLayoutManager(AudioStreamingActivity.this, RecyclerView.HORIZONTAL, false);
+                activityUserAudioBinding.listiuser.setLayoutManager(llmb);
+                activityUserAudioBinding.listiuser.setAdapter(userDataAdapter);
+
             }
             @Override
             public void onRoomOnlineUserCountUpdate(String roomID, int count) {
@@ -411,9 +434,9 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
 
-                        for (int o=0;o<streamList.size();o++){
-                            engine.startPlayingStream(streamList.get(o).streamID);
-                        }
+                for (int o=0;o<streamList.size();o++){
+                    engine.startPlayingStream(streamList.get(o).streamID);
+                }
 
 
 
@@ -454,7 +477,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
 
-                     // Start publishing stream
+                    // Start publishing stream
                     engine.startPublishingStream(userID);
                     engine.startPreview();
 
@@ -464,27 +487,31 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
 
-                    userappliedforseat.remove(fromUser);
+                    for (int i=0; i<userappliedforseat.size();i++){
+                        if (userappliedforseat.get(i).userID.equals(fromUser.userID)){
+                            userappliedforseat.remove(i);
+                        }
+                    }
 
 
-                    seatRequestListAdapter.setSeatList(userappliedforseat,AudioStreamingActivity.this);
+                     seatRequestListAdapter.setSeatList(userappliedforseat,AudioStreamingActivity.this);
                     seatRequestListAdapter.notifyDataSetChanged();
                 }
 
                 if (command.equals("seatapply")){
 
                     Toast.makeText(AudioStreamingActivity.this, "sasax", Toast.LENGTH_SHORT).show();
-                     userappliedforseat.add(fromUser);
+                    userappliedforseat.add(fromUser);
                     seatRequestListAdapter.setSeatList(userappliedforseat,AudioStreamingActivity.this);
                     seatRequestListAdapter.notifyDataSetChanged();
 
                     for (int i=0 ;i<userlist.size();i++){
 
                         if (userlist.get(i).userID.equals(roomID)){
-                            ObjectAnimator
-                                    .ofFloat(activityUserAudioBinding.incomingcall, "translationX", 0, 25, -25, 25, -25,15, -15, 6, -6, 0)
-                                    .setDuration(2000)
-                                    .start();
+//                            ObjectAnimator
+//                                    .ofFloat(activityUserAudioBinding.incomingcall, "translationX", 0, 25, -25, 25, -25,15, -15, 6, -6, 0)
+//                                    .setDuration(2000)
+//                                    .start();
 
                         }
 
@@ -516,7 +543,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
     void joinSocket(String msg){
 
-         JSONObject messageJson = new JSONObject();
+        JSONObject messageJson = new JSONObject();
         try {
             messageJson.put("name",Comman.getInstance().name);
             messageJson.put("user_id", userID);
@@ -788,7 +815,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
     private Emitter.Listener seat_list_get  = new Emitter.Listener() {
 
         @Override    public void call(final Object... args) {
-    Log.e("fdsgfsgety","trgety hw5 4ejt");
+            Log.e("fdsgfsgety","trgety hw5 4ejt");
 
 
             runOnUiThread(new Runnable() {
@@ -902,31 +929,16 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
 
+
         if(ishostornot) {
 
 
-
-            int hostseststatus=0;
-
-            for (int i=1;i<seatList.size();i++)
-            {
-
-                if (seatList.get(i).userID.equals(userID)){
-                    hostseststatus=seatList.get(i).seatIndex;
+             if (seatModel.status==ZegoSpeakerSeatStatus.Untaken){
 
 
-                }
-
-            }
-
-
-            if (hostseststatus ==0){
-
-
-
-                JSONObject messageJson = new JSONObject();
+           JSONObject messageJson = new JSONObject();
                 try {
-                    messageJson.put("user_id",getHostID());
+                    messageJson.put("user_id",userID);
                     messageJson.put("channel_no", roomId);
                     messageJson.put("room_type", "audio");
                     messageJson.put("status", 1);
@@ -944,65 +956,109 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
 
+            }else if (seatModel.userID.equals(userID)){
+                showToolTip(seatModel,v, roomId, 0);
 
             }
 
 
-            else{
-
-
-                JSONObject messageJson1 = new JSONObject();
-                try {
-                    messageJson1.put("user_id","");
-                    messageJson1.put("channel_no", roomId);
-                    messageJson1.put("room_type", "audio");
-                    messageJson1.put("status", 0);
-                    messageJson1.put("seat_no",  hostseststatus);
-                    messageJson1.put("role", 1);
-                    messageJson1.put("mic", 1);
-
-
-                } catch (Exception e)
-                {
-                    Log.e("socket error send",""+e.getMessage());
-
-                }
-                mSocket.emit("seat_update_emit", messageJson1);
-
-
-
-                new Handler().postDelayed(() -> {
-
-
-
-                    JSONObject messageJson = new JSONObject();
-                    try {
-                        messageJson.put("user_id",getHostID());
-                        messageJson.put("channel_no", roomId);
-                        messageJson.put("room_type", "audio");
-                        messageJson.put("status", 1);
-                        messageJson.put("seat_no", 0);
-                        messageJson.put("role", 1);
-                        messageJson.put("mic", 1);
-
-
-                    } catch (Exception e)
-                    {
-                        Log.e("socket error send",""+e.getMessage());
-
-                    }
-                    mSocket.emit("seat_update_emit", messageJson);
-
-
-
-
-                }, 1000);
-
-
-
-
-
-            }
+//            int hostseststatus=0;
+//
+//            for (int i=1;i<seatList.size();i++)
+//            {
+//
+//                if (seatList.get(i).userID.equals(userID)){
+//                    hostseststatus=seatList.get(i).seatIndex;
+//
+//
+//                }
+//
+//            }
+//
+//
+//            if (hostseststatus ==0){
+//
+//
+//
+//                JSONObject messageJson = new JSONObject();
+//                try {
+//                    messageJson.put("user_id",getHostID());
+//                    messageJson.put("channel_no", roomId);
+//                    messageJson.put("room_type", "audio");
+//                    messageJson.put("status", 1);
+//                    messageJson.put("seat_no", 0);
+//                    messageJson.put("role", 1);
+//                    messageJson.put("mic", 1);
+//
+//
+//                } catch (Exception e)
+//                {
+//                    Log.e("socket error send",""+e.getMessage());
+//
+//                }
+//                mSocket.emit("seat_update_emit", messageJson);
+//
+//
+//
+//
+//            }
+//
+//
+//            else{
+//
+//
+//                JSONObject messageJson1 = new JSONObject();
+//                try {
+//                    messageJson1.put("user_id","");
+//                    messageJson1.put("channel_no", roomId);
+//                    messageJson1.put("room_type", "audio");
+//                    messageJson1.put("status", 0);
+//                    messageJson1.put("seat_no",  hostseststatus);
+//                    messageJson1.put("role", 1);
+//                    messageJson1.put("mic", 1);
+//
+//
+//                } catch (Exception e)
+//                {
+//                    Log.e("socket error send",""+e.getMessage());
+//
+//                }
+//                mSocket.emit("seat_update_emit", messageJson1);
+//
+//
+//
+//                new Handler().postDelayed(() -> {
+//
+//
+//
+//                    JSONObject messageJson = new JSONObject();
+//                    try {
+//                        messageJson.put("user_id",getHostID());
+//                        messageJson.put("channel_no", roomId);
+//                        messageJson.put("room_type", "audio");
+//                        messageJson.put("status", 1);
+//                        messageJson.put("seat_no", 0);
+//                        messageJson.put("role", 1);
+//                        messageJson.put("mic", 1);
+//
+//
+//                    } catch (Exception e)
+//                    {
+//                        Log.e("socket error send",""+e.getMessage());
+//
+//                    }
+//                    mSocket.emit("seat_update_emit", messageJson);
+//
+//
+//
+//
+//                }, 1000);
+//
+//
+//
+//
+//
+//            }
 
 
 
@@ -1022,7 +1078,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
     private void onSpeakerSeatClicked(ZegoSpeakerSeatModel seatModel,View v) {
 
         if (ishostornot) {
-             if (seatModel.status == ZegoSpeakerSeatStatus.Untaken) {
+            if (seatModel.status == ZegoSpeakerSeatStatus.Untaken) {
                 showToolTip(seatModel,v,"",5);
             } else if (seatModel.status == ZegoSpeakerSeatStatus.Closed) {
                 showToolTip(seatModel,v,"",6);
@@ -1162,7 +1218,6 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
 
-
                             JSONObject messageJson = new JSONObject();
                             try {
                                 messageJson.put("user_id", "");
@@ -1176,11 +1231,14 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
                             } catch (Exception e)
                             {
-                                Log.e("socket error send",""+e.getMessage());
+                                Toast.makeText(AudioStreamingActivity.this, "wsadfed  "+e.getMessage(), Toast.LENGTH_LONG).show();
+                                Log.e("socketerrorsend","hi  "+e.getMessage());
 
                             }
 
                             mSocket.emit("seat_update_emit", messageJson);
+
+
 
 
 
@@ -1199,7 +1257,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                         //   showProfileDetails(stid);
+                            //   showProfileDetails(stid);
                             tooltip.dismiss();
                         }
                     }
@@ -1247,7 +1305,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                          //  showProfileDetails(stid);
+                            //  showProfileDetails(stid);
                             tooltip.dismiss();
                         }
                     }
@@ -1303,9 +1361,9 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
 
-                        tooltip.dismiss();
+                    tooltip.dismiss();
 
-                    }
+                }
 
             });
 
@@ -1321,7 +1379,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                       //     showProfileDetails(seatModel.getIid());
+                            //     showProfileDetails(seatModel.getIid());
                             tooltip.dismiss();
                         }
                     }
@@ -1341,7 +1399,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                          //  showProfileDetails(stid);
+                            //  showProfileDetails(stid);
                             tooltip.dismiss();
                         }
                     }
@@ -1374,7 +1432,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                          //  showProfileDetails(seatModel.getIid());
+                            //  showProfileDetails(seatModel.getIid());
                             tooltip.dismiss();
                         }
                     }
@@ -1393,7 +1451,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                         //   showProfileDetails(seatModel.getIid());
+                            //   showProfileDetails(seatModel.getIid());
                             tooltip.dismiss();
                         }
                     }
@@ -1404,7 +1462,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                         //   leavespeaker(seatModel.seatIndex);
+                            //   leavespeaker(seatModel.seatIndex);
                             tooltip.dismiss();
                         }
                     }
@@ -1452,7 +1510,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
                             } else {
-                               // ToastUtils.showShort(R.string.toast_lock_seat_already_take_seat);
+                                // ToastUtils.showShort(R.string.toast_lock_seat_already_take_seat);
                             }
                             tooltip.dismiss();
                         }
@@ -1503,7 +1561,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                                         seatListAdapter.updateUserInfo(model, pos);
                                     }
                                 } else {
-                               //     ToastUtils.showShort(R.string.toast_lock_seat_already_take_seat);
+                                    //     ToastUtils.showShort(R.string.toast_lock_seat_already_take_seat);
                                 }
                                 tooltip.dismiss();
                             }
@@ -1515,7 +1573,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                     seatapplyBottonDaolog.show();
+                    seatapplyBottonDaolog.show();
 
                 }
             });
@@ -1542,13 +1600,17 @@ public class AudioStreamingActivity extends AppCompatActivity {
     BottomSheetDialog seatapplyBottonDaolog  ;
 
     SeatqueuelistandapplyforseatBinding seatqueuelistandapplyforseatBinding;
+
+
     SeatRequestListAdapter seatRequestListAdapter;
+
 
     public static int applyseatactiveornot=1;
 
+
     public void applyforseatQueue(){
 
-        seatRequestListAdapter=new   SeatRequestListAdapter(AudioStreamingActivity.this
+        seatRequestListAdapter = new   SeatRequestListAdapter(AudioStreamingActivity.this
                 ,userappliedforseat,Comman.getInstance().getUser_id(),userID,roomId,ishostornot);
         seatapplyBottonDaolog = new BottomSheetDialog(AudioStreamingActivity.this);
 
@@ -1625,14 +1687,15 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
 
                 }
-                else{
+                else
+                {
 
                     engine.sendCustomCommand(roomId, "seatapply",userlist , new IZegoIMSendCustomCommandCallback() {
                         @SuppressLint("ResourceAsColor")
                         @Override
                         public void onIMSendCustomCommandResult(int errorCode) {
                             if (errorCode == 0) {
-                                 seatqueuelistandapplyforseatBinding.sendrequestfortakebackrequest.setText("Click here to get off the queue");
+                                seatqueuelistandapplyforseatBinding.sendrequestfortakebackrequest.setText("Click here to get off the queue");
                                 seatqueuelistandapplyforseatBinding.sendrequestfortakebackrequest.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.grayDark)));
 
                                 applyseatactiveornot=0;
@@ -1678,7 +1741,7 @@ public class AudioStreamingActivity extends AppCompatActivity {
 
             if (userlist.get(i).userID.equals(userId)){
 
-                        commandtosingleuser.add(userlist.get(i));
+                commandtosingleuser.add(userlist.get(i));
 
             }
 
@@ -1702,19 +1765,19 @@ public class AudioStreamingActivity extends AppCompatActivity {
     }
 
 
-public void audienceButton(){
+    public void audienceButton(){
 
-}
+    }
 
-public  void hostButton(){
+    public  void hostButton(){
 
-}
-public void adminButtom(){
+    }
+    public void adminButtom(){
 
-}
+    }
 
-public void ownerButton(){
+    public void ownerButton(){
 
-}
+    }
 
 }

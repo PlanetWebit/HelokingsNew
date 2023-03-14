@@ -16,6 +16,8 @@ import planet.com.helokings.Pojo.RoomData.ResponseRoom;
 import planet.com.helokings.Pojo.RoomDetails.ResponseRoomDetails;
 import planet.com.helokings.Pojo.userProfile.ResponseProfile;
  import planet.com.helokings.VideoStreamingActivity.audioseatmodule.pojos.ResponseOtherData;
+import planet.com.helokings.VideoStreamingActivity.roomUserDetails.LoginModule;
+import planet.com.helokings.VideoStreamingActivity.userlists.RoomMemberList.ResponseRoomMember;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -169,5 +171,35 @@ public interface MyInterFace {
             @Field("auth_token") String auth_token,
             @Field("starting_point") String starting_point
     );
+
+
+
+    @FormUrlEncoded
+    @POST("Api_latest/room_member_create")
+    Call<LoginModule> requestMember(
+            @Field("auth_token") String token,
+            @Field("room_id") String room_id
+    );
+
+
+
+    @FormUrlEncoded
+    @POST("Api_latest/member_list")
+    Call<ResponseRoomMember> memberList(
+            @Field("auth_token") String user_id,
+            @Field("room_id") String room_id,
+            @Field("status") String status
+    );
+
+
+    @FormUrlEncoded
+    @POST("Api_latest/member_status_change")
+    Call<LoginModule> approveMember(
+            @Field("auth_token") String token,
+            @Field("room_id") String room_id,
+            @Field("user_id") String user_id,
+            @Field("status_type") String status
+    );
+
 
 }

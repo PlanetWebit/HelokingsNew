@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,10 +66,9 @@ public class SeatRequestListAdapter extends RecyclerView.Adapter<SeatRequestList
 
         //holder.sn.setText((position+1)+"");
 
-if (islocaluserhost){
-    holder.approve.setVisibility(View.VISIBLE);
-    holder.delete.setVisibility(View.VISIBLE);
-}
+            if (islocaluserhost){
+                holder.rOccupied1.setVisibility(View.VISIBLE);
+             }
 
         holder.approve.setOnClickListener(v -> {
             if (onrequestseatClickListnener != null) {
@@ -77,14 +77,7 @@ if (islocaluserhost){
 
             }
         });
-        holder.delete.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                      //  changeStatus(liveNowModel.getId(),"2");
-                    }
-                }
-        );
+
 
     }
     public void onrequestseatClickListnener(ApproveSeatClicklistener itemListener) {
@@ -103,20 +96,29 @@ if (islocaluserhost){
     public class SeatRquestListHolder extends RecyclerView.ViewHolder {
         CircleImageView live_user;
         TextView name,type,level,sn;
-        ImageView videoFrame,approve,delete;
+        ImageView videoFrame,approve;
+        RelativeLayout rOccupied1;
 
 
 
         public SeatRquestListHolder(@NonNull View itemView) {
             super(itemView);
 
+
             live_user = itemView.findViewById(R.id.image);
+
+            rOccupied1 = itemView.findViewById(R.id.rOccupied1);
+
             name = itemView.findViewById(R.id.tv_user_name);
+
             type = itemView.findViewById(R.id.type);
+
             videoFrame = itemView.findViewById(R.id.videoFrame);
+
             approve = itemView.findViewById(R.id.approve);
-            delete = itemView.findViewById(R.id.delete);
-        }
+
+
+         }
     }
 
 

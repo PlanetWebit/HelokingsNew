@@ -17,4 +17,12 @@
     <color name="whitetransparent">#00FFFFFF</color>
     <color name="blacktranspart">#7F000000</color>
     <color name="blacktranspart1">#CE000000</color>
- </resources>
+
+    <color name="purple_200">#FFBB86FC</color>
+
+
+    <color name="seek_yellow">#FFB300</color>
+
+
+
+</resources>

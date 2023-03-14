@@ -77,6 +77,8 @@ public class SeatListAdapter extends RecyclerView.Adapter<SeatListAdapter.SeatLi
                 break;
             }
         }
+        holder.speakerName.setText("Username");
+
 
         switch (speakerSeatModel.status) {
             case Occupied:
@@ -97,18 +99,20 @@ public class SeatListAdapter extends RecyclerView.Adapter<SeatListAdapter.SeatLi
                     holder.videoFrame.setVisibility(View.GONE);
                 }
 
-                if(speakerSeatModel.room_role!=null) {
-                    if (speakerSeatModel.room_role.equalsIgnoreCase("Admin")) {
-                        holder.speakerName.setText("Admin");
-                        holder.speakerName.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.speakerName.setVisibility(View.INVISIBLE);
-                        holder.speakerName.setText("");
-                    }
-                }else{
-                    holder.speakerName.setVisibility(View.INVISIBLE);
-                    holder.speakerName.setText("");
-                }
+//                if(speakerSeatModel.room_role!=null) {
+//                    if (speakerSeatModel.room_role.equalsIgnoreCase("Admin")) {
+//                        holder.speakerName.setText("Admin");
+//                        holder.speakerName.setVisibility(View.VISIBLE);
+//                    } else {
+//                        holder.speakerName.setVisibility(View.INVISIBLE);
+//                        holder.speakerName.setText("");
+//                    }
+//                }else{
+//                    holder.speakerName.setVisibility(View.INVISIBLE);
+//                    holder.speakerName.setText("");
+//                }
+                holder.speakerName.setVisibility(View.VISIBLE);
+
                 holder.lSeat.setVisibility(View.GONE);
                 holder.ivLock.setVisibility(View.GONE);
                 holder.rOccupied.setVisibility(View.VISIBLE);

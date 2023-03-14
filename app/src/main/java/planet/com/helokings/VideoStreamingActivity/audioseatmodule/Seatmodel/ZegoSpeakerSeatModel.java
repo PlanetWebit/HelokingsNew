@@ -43,6 +43,9 @@ public class ZegoSpeakerSeatModel {
     @SerializedName("image")
     String image;
 
+    @SerializedName("name")
+    String name;
+
 
     public ZegoSpeakerSeatModel(String userID, int seatIndex, boolean mic, String room_role, String image, String frame, ZegoSpeakerSeatStatus n, float soundLevel, ZegoNetWorkQuality network) {
         this.userID = userID;
@@ -65,6 +68,26 @@ public class ZegoSpeakerSeatModel {
         this.image = image;
         this.status = status;
         this.iid = iid ;
+    }
+
+    public ZegoSpeakerSeatModel(String userID, String iid,int seatIndex, boolean mic, String room_role, String frame, String image,String name, ZegoSpeakerSeatStatus status) {
+        this.userID = userID;
+        this.seatIndex = seatIndex;
+        this.mic = mic;
+        this.room_role = room_role;
+        this.frame = frame;
+        this.image = image;
+        this.status = status;
+        this.iid = iid ;
+        this.name = name ;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getIid() {

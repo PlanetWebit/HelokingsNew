@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-         android:layout_width="180dp"
+         android:layout_width="220dp"
     android:id="@+id/textBubble"
      android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -73,15 +73,17 @@ android:background="@drawable/btn_bgtextbubble"
                 android:textStyle="bold" />
 
 
-
             <ImageView
                 android:id="@+id/imagee"
                 android:layout_width="25dp"
-                android:layout_margin="4dp"
+                android:layout_height="20dp"
                 android:layout_below="@+id/tv_user_name"
-                android:src="@drawable/splash"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="4dp"
                 android:layout_toEndOf="@+id/imagecontainer"
-                android:layout_height="20dp" />
+                android:src="@drawable/badge128" />
 
             <TextView
                 android:id="@+id/userlevel"
