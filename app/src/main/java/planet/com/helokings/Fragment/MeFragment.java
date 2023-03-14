@@ -23,6 +23,7 @@ import planet.com.helokings.Login.LoginActivity;
 import planet.com.helokings.Pojo.userProfile.ResponseProfile;
 import planet.com.helokings.R;
 import planet.com.helokings.RetrofitAPI.RetrofitClient;
+import planet.com.helokings.Service.Refresh;
 import planet.com.helokings.SharedPref.Comman;
 import planet.com.helokings.SharedPref.UserSharePreferancess;
 import planet.com.helokings.databinding.FragmentMeBinding;
@@ -31,17 +32,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MeFragment extends Fragment {
+public class MeFragment extends Fragment implements Refresh {
     FragmentMeBinding meBinding;
 
 
     UserSharePreferancess userSharePreferancess;
+
+    public static Refresh refresh;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         meBinding = FragmentMeBinding.inflate(inflater, container, false);
         View root = meBinding.getRoot();
+        refresh=this;
         userSharePreferancess=new UserSharePreferancess(getActivity());
         meBinding.layVip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,5 +173,8 @@ public class MeFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onRefresh() {
+        getUserProfile();
+    }
 }

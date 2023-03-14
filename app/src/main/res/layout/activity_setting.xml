@@ -82,17 +82,30 @@
 
                         </RelativeLayout>
 
-                        <de.hdodenhof.circleimageview.CircleImageView
+                        <RelativeLayout
+                            android:id="@+id/rOccupied"
                             android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:layout_height="100dp">
 
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/profile"
+                                android:layout_width="70dp"
+                                android:src="@drawable/profile"
+                                android:layout_height="70dp"
+                                android:layout_centerInParent="true" />
+
+                            <ImageView
+                                android:id="@+id/videoFrame"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp" />
+                        </RelativeLayout>
                         <TextView
+                            android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
-                            android:text="User Name"
+                            android:text=""
                             android:textColor="@color/grayDark"
                             android:textSize="18sp" />
                     </LinearLayout>

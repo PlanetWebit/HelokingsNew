@@ -10,11 +10,13 @@ import planet.com.helokings.Model.OtpModule;
 import planet.com.helokings.Model.RegistrModule;
 import planet.com.helokings.Model.StoreFrameModel;
 import planet.com.helokings.Pojo.Fonts.ResponseFonts;
+import planet.com.helokings.Pojo.Frames.ResponseFrames;
 import planet.com.helokings.Pojo.HomeData.ResponseHomedata;
 import planet.com.helokings.Pojo.LikeUnlikeModel;
 import planet.com.helokings.Pojo.MyRooms.ResponseRoomdata;
 import planet.com.helokings.Pojo.RoomData.ResponseRoom;
 import planet.com.helokings.Pojo.RoomDetails.ResponseRoomDetails;
+import planet.com.helokings.Pojo.UpdateUserModule;
 import planet.com.helokings.Pojo.userProfile.ResponseProfile;
  import planet.com.helokings.VideoStreamingActivity.audioseatmodule.pojos.ResponseOtherData;
 import planet.com.helokings.VideoStreamingActivity.roomUserDetails.LoginModule;
@@ -209,4 +211,18 @@ public interface MyInterFace {
             @Field("auth_token") String auth_token,
             @Field("video_id") String video_id);
 
+    @Multipart
+    @POST("Api_latest/update_userdata")
+    Call<UpdateUserModule> updateUserProfile(@Part("auth_token") RequestBody auth_token,
+                                             @Part("nick_name") RequestBody nick_name,
+                                             @Part("bio") RequestBody bio,
+                                             @Part("gender") RequestBody gender,
+                                             @Part MultipartBody.Part profile_pic);
+    @FormUrlEncoded
+    @POST("Api_latest/trans_save_frame")
+    Call<LoginModule> buyFrame(
+            @Field("auth_token") String user_id,
+            @Field("wallet_frames_id") String wallet_frames_id,
+            @Field("type") String type
+    );
 }

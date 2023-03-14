@@ -57,15 +57,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <RelativeLayout
+                        android:id="@+id/rOccupied"
                         android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/login" />
+                        android:layout_height="100dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/profile" />
+                    </RelativeLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/pickPhoto"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="end"
                         android:layout_marginTop="70dp"
                         android:background="@drawable/circle"
@@ -81,6 +89,7 @@
                 </FrameLayout>
 
                 <EditText
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -102,6 +111,7 @@
                     android:background="@color/graylight" />
 
                 <EditText
+                    android:id="@+id/bio"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -122,6 +132,7 @@
                     android:background="@color/graylight" />
 
                 <EditText
+                    android:id="@+id/country"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -129,6 +140,7 @@
                     android:gravity="center"
                     android:hint="@string/country"
                     android:singleLine="true"
+                    android:text="India"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -142,6 +154,7 @@
                     android:background="@color/graylight" />
 
                 <EditText
+                    android:id="@+id/birthDay"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -161,16 +174,48 @@
                     android:layout_marginBottom="5dp"
                     android:background="@color/graylight" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:hint="@string/gender"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+
+                    <RadioGroup
+                        android:id="@+id/genderdgrp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+                        <RadioButton
+                            android:id="@+id/malebtmn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/dark_blue"
+                            android:text="Male" />
+
+                        <RadioButton
+                            android:id="@+id/femalebtmn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/dark_blue"
+                            android:text="Female" />
+
+                        <RadioButton
+                            android:id="@+id/otherbtmn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/dark_blue"
+                            android:text="Other" />
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+                    </RadioGroup>
 
                 <View
                     android:layout_width="match_parent"
@@ -182,6 +227,7 @@
                     android:background="@color/graylight" />
 
                 <EditText
+                    android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -193,15 +239,17 @@
                     android:textSize="15sp" />
 
                 <com.skydoves.elasticviews.ElasticButton
+                    android:id="@+id/save"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/btn_bg"
-                    android:backgroundTint="@color/graylight"
                     android:text="@string/save"
                     android:textColor="@color/white"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:button_duration="200"
+                    app:button_scale="0.93" />
 
 
             </LinearLayout>
