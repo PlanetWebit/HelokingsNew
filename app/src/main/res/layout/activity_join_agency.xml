@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".Activity.JoinAgency">
+    <LinearLayout
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/tool_bar_bg">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint="@color/white" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apply to join an Agency"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        android:backgroundTint="#51CCCCCC"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/gray_fill_round_rectangle_bg">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agency ID"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Enter New Agency ID"
+            android:layout_marginTop="10dp"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grayDark"
+            android:background="@color/transparent"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/grayDark"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="After the Agency owner approves, you will join\nthis Agency"
+            android:gravity="center"
+            android:textColor="@color/grayDark"
+            android:textSize="12dp"/>
+        <com.skydoves.elasticviews.ElasticButton
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Submit"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/white"
+            android:background="@drawable/gradient_bg"/>
+    </LinearLayout>
+</LinearLayout>

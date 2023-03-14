@@ -47,9 +47,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ColeaderDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MomentComment"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.JoinAgency"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ProfileActivity"
             android:exported="true">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -68,8 +76,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
         <activity
             android:name=".VideoStreamingActivity.AudioStreamingActivity"
             android:exported="false">
@@ -165,6 +171,20 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Activity.SettingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activity.NobleActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Login.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -172,7 +192,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
 
             <meta-data
                 android:name="android.app.lib_name"
@@ -185,6 +204,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

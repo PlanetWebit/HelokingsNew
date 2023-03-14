@@ -11,6 +11,7 @@ import planet.com.helokings.Model.RegistrModule;
 import planet.com.helokings.Model.StoreFrameModel;
 import planet.com.helokings.Pojo.Fonts.ResponseFonts;
 import planet.com.helokings.Pojo.HomeData.ResponseHomedata;
+import planet.com.helokings.Pojo.LikeUnlikeModel;
 import planet.com.helokings.Pojo.MyRooms.ResponseRoomdata;
 import planet.com.helokings.Pojo.RoomData.ResponseRoom;
 import planet.com.helokings.Pojo.RoomDetails.ResponseRoomDetails;
@@ -201,5 +202,11 @@ public interface MyInterFace {
             @Field("status_type") String status
     );
 
+
+    @FormUrlEncoded
+    @POST("Api_latest/videoLikeUser")
+    Call<LikeUnlikeModel> likedata(
+            @Field("auth_token") String auth_token,
+            @Field("video_id") String video_id);
 
 }

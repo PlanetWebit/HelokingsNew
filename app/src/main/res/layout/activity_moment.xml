@@ -3,23 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/graylight"
     tools:context=".Activity.MomentActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center_vertical"
         android:background="@drawable/tool_bar_bg">
 
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint="@color/white" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Moments"
+            android:text="Moment"
+            android:layout_marginLeft="15dp"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
-
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/main_rv"
@@ -33,70 +44,61 @@
             android:id="@+id/lay_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:weightSum="3">
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:background="@color/white"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tv_all"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/button"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:background="@drawable/gradient_bg"
                 android:gravity="center"
                 android:padding="5dp"
+                android:layout_marginRight="10dp"
                 android:text="All"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/tv_followed"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
                 android:background="@drawable/white_bule_rounded"
                 android:gravity="center"
                 android:padding="5dp"
-                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
                 android:text="Followed"
-                android:textSize="15sp" />
+                android:textColor="@color/black"
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/tv_family"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="40dp"
                 android:background="@drawable/white_bule_rounded"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="Family"
-                android:textSize="15sp" />
+                android:textColor="@color/black"
+                android:textSize="15dp" />
         </LinearLayout>
 
 
         <View
             android:id="@+id/view10"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/lay_all"
-            android:layout_marginTop="15dp"
-            android:background="@color/grayDark" />
+            android:layout_height="0dp"
+            android:layout_below="@+id/lay_all" />
 
-        <FrameLayout
-            android:id="@+id/moment_frame"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/moment_all_post_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/view10" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/view10" />
 
         <RelativeLayout
             android:layout_width="110dp"

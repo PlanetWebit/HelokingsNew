@@ -219,6 +219,7 @@
                             android:background="@color/graylight" />
 
                         <TextView
+                            android:id="@+id/joinAgenecy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -420,13 +421,13 @@
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/light_blue"
                     app:cardCornerRadius="15dp"
-                    app:cardElevation="7dp"
+                    app:cardElevation="5dp"
                     app:contentPadding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Log Out"
+                        android:text="Logout"
                         android:textColor="@color/white"
                         android:layout_gravity="center"
                         android:gravity="center"

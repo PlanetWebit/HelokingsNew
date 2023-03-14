@@ -1,41 +1,51 @@
 package planet.com.helokings.Activity;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 
-import planet.com.helokings.Fragment.MomentAllFragment;
-import planet.com.helokings.Fragment.MomentFmlyFragment;
-import planet.com.helokings.Fragment.MomentFollowedFragment;
+import planet.com.helokings.Adapter.MomentAllPostAdapter;
+import planet.com.helokings.Model.MomentAllPostModel;
+import planet.com.helokings.Pojo.MomentAllPostPojo;
 import planet.com.helokings.R;
+import planet.com.helokings.RetrofitAPI.RetrofitClient;
 import planet.com.helokings.SharedPref.Comman;
 import planet.com.helokings.databinding.ActivityMomentBinding;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MomentActivity extends AppCompatActivity {
-    ActivityMomentBinding momentBinding;
+    ActivityMomentBinding binding;
     String Moment_Value = "", Moment_Post = "0", VideoFilePath;
     private static final int PERMISSION_REQUEST_CODE = 200;
     String DataValue = "";
@@ -43,37 +53,44 @@ public class MomentActivity extends AppCompatActivity {
     String base64Image = "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAsQAAALEBxi1JjQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACtSURBVEiJ7dM9DgFRGIXhh6gI+9DpNKyBwmY0YhnWo5aIBUioaRQmJBIKU4xhJsPMFJM4yZfcmy/nvPeX79TEFBsEuOKILbpfZr2pgxXuCdXLC1ikhOcGtHApEzD4EDj3PLZCNI6F39DIYqxnBMTDziGkMMDPKh2QprX0VxOtZVJIUTvYVR6wT2rUUkx9tMPxELNIL8AoMt/g8OvqYOL1Uk9ZjdX/B3/AH1ABwAPkaT24O75COAAAAABJRU5E";
 
 
+    ArrayList<MomentAllPostPojo> pojoArrayList = new ArrayList<>();
+    ProgressDialog progressDialog;
+    MomentAllPostAdapter adapter;
+
+    int scrollStatus;
+    int valStatusStatus;
+    int page = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        momentBinding = ActivityMomentBinding.inflate(getLayoutInflater());
-        setContentView(momentBinding.getRoot());
-        getSupportFragmentManager().beginTransaction().replace(R.id.moment_frame, new MomentAllFragment()).commit();
+        binding = ActivityMomentBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        Log.e("token", "" + Comman.getInstance().getToken());
-        //   MomentBG();
+        initView();
 
-        momentBinding.tvNewpost.setOnClickListener(new View.OnClickListener() {
+        binding.tvNewpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Moment_Post.equalsIgnoreCase("0")) {
                     Moment_Post = "1";
-                    momentBinding.layVideo.setVisibility(View.VISIBLE);
-                    momentBinding.layGallery.setVisibility(View.VISIBLE);
-                    momentBinding.layCamera.setVisibility(View.VISIBLE);
-                    momentBinding.tvNewpost.setText("Close");
+                    binding.layVideo.setVisibility(View.VISIBLE);
+                    binding.layGallery.setVisibility(View.VISIBLE);
+                    binding.layCamera.setVisibility(View.VISIBLE);
+                    binding.tvNewpost.setText("Close");
 
                 } else if (Moment_Post.equalsIgnoreCase("1")) {
                     Moment_Post = "0";
-                    momentBinding.layVideo.setVisibility(View.GONE);
-                    momentBinding.layGallery.setVisibility(View.GONE);
-                    momentBinding.layCamera.setVisibility(View.GONE);
-                    momentBinding.tvNewpost.setText("New Post");
+                    binding.layVideo.setVisibility(View.GONE);
+                    binding.layGallery.setVisibility(View.GONE);
+                    binding.layCamera.setVisibility(View.GONE);
+                    binding.tvNewpost.setText("New Post");
                 }
             }
         });
 
-        momentBinding.tvAll.setOnClickListener(new View.OnClickListener() {
+        binding.tvAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Moment_Value = "1";
@@ -81,7 +98,7 @@ public class MomentActivity extends AppCompatActivity {
             }
         });
 
-        momentBinding.tvFollowed.setOnClickListener(new View.OnClickListener() {
+        binding.tvFollowed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Moment_Value = "2";
@@ -89,7 +106,7 @@ public class MomentActivity extends AppCompatActivity {
             }
         });
 
-        momentBinding.tvFamily.setOnClickListener(new View.OnClickListener() {
+        binding.tvFamily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Moment_Value = "3";
@@ -97,7 +114,7 @@ public class MomentActivity extends AppCompatActivity {
 
             }
         });
-        momentBinding.layVideo.setOnClickListener(new View.OnClickListener() {
+        binding.layVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkPermission()) {
@@ -109,14 +126,14 @@ public class MomentActivity extends AppCompatActivity {
                 }
             }
         });
-        momentBinding.layGallery.setOnClickListener(new View.OnClickListener() {
+        binding.layGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DataValue = "2";
                 CropImageF();
             }
         });
-        momentBinding.layCamera.setOnClickListener(new View.OnClickListener() {
+        binding.layCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkPermission()) {
@@ -130,6 +147,41 @@ public class MomentActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void initView() {
+
+        binding.back.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                    }
+                }
+        );
+        progressDialog = new ProgressDialog(MomentActivity.this, R.style.MyDialogStyle);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        progressDialog.getWindow().setGravity(Gravity.RELATIVE_LAYOUT_DIRECTION);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        adapter = new MomentAllPostAdapter(getApplicationContext(), pojoArrayList);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
+        binding.momentAllPostRecyclerView.setAdapter(adapter);
+        binding.momentAllPostRecyclerView.setLayoutManager(llm);
+
+        PostData(0);
+
+        binding.momentAllPostRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!recyclerView.canScrollVertically(1))
+                    onScrolledToBottom();
+            }
+        });
 
     }
 
@@ -280,32 +332,81 @@ public class MomentActivity extends AppCompatActivity {
 
     private void MomentBG() {
         if (Moment_Value.equalsIgnoreCase("1")) {
-            momentBinding.tvAll.setTextColor(Color.WHITE);
-            momentBinding.tvFamily.setTextColor(Color.BLACK);
-            momentBinding.tvFollowed.setTextColor(Color.BLACK);
-            getSupportFragmentManager().beginTransaction().replace(R.id.moment_frame, new MomentAllFragment()).commit();
-
-            momentBinding.tvAll.setBackgroundResource(R.drawable.button);
-            momentBinding.tvFamily.setBackgroundResource(R.drawable.white_bule_rounded);
-            momentBinding.tvFollowed.setBackgroundResource(R.drawable.white_bule_rounded);
+            binding.tvAll.setTextColor(Color.WHITE);
+            binding.tvFamily.setTextColor(Color.BLACK);
+            binding.tvFollowed.setTextColor(Color.BLACK);
+            binding.tvAll.setBackgroundResource(R.drawable.gradient_bg);
+            binding.tvFamily.setBackgroundResource(R.drawable.white_bule_rounded);
+            binding.tvFollowed.setBackgroundResource(R.drawable.white_bule_rounded);
 
         } else if (Moment_Value.equalsIgnoreCase("2")) {
-            momentBinding.tvFollowed.setTextColor(Color.WHITE);
-            momentBinding.tvAll.setTextColor(Color.BLACK);
-            momentBinding.tvFamily.setTextColor(Color.BLACK);
-            getSupportFragmentManager().beginTransaction().replace(R.id.moment_frame, new MomentFollowedFragment()).commit();
-            momentBinding.tvAll.setBackgroundResource(R.drawable.white_bule_rounded);
-            momentBinding.tvFollowed.setBackgroundResource(R.drawable.button);
-            momentBinding.tvFamily.setBackgroundResource(R.drawable.white_bule_rounded);
+            binding.tvFollowed.setTextColor(Color.WHITE);
+            binding.tvAll.setTextColor(Color.BLACK);
+            binding.tvFamily.setTextColor(Color.BLACK);
+            binding.tvAll.setBackgroundResource(R.drawable.white_bule_rounded);
+            binding.tvFollowed.setBackgroundResource(R.drawable.gradient_bg);
+            binding.tvFamily.setBackgroundResource(R.drawable.white_bule_rounded);
         } else if (Moment_Value.equalsIgnoreCase("3")) {
-            momentBinding.tvFamily.setTextColor(Color.WHITE);
-            momentBinding.tvAll.setTextColor(Color.BLACK);
-            momentBinding.tvFollowed.setTextColor(Color.BLACK);
-            getSupportFragmentManager().beginTransaction().replace(R.id.moment_frame, new MomentFmlyFragment()).commit();
-
-            momentBinding.tvFamily.setBackgroundResource(R.drawable.button);
-            momentBinding.tvAll.setBackgroundResource(R.drawable.white_bule_rounded);
-            momentBinding.tvFollowed.setBackgroundResource(R.drawable.white_bule_rounded);
+            binding.tvFamily.setTextColor(Color.WHITE);
+            binding.tvAll.setTextColor(Color.BLACK);
+            binding.tvFollowed.setTextColor(Color.BLACK);
+            binding.tvFamily.setBackgroundResource(R.drawable.gradient_bg);
+            binding.tvAll.setBackgroundResource(R.drawable.white_bule_rounded);
+            binding.tvFollowed.setBackgroundResource(R.drawable.white_bule_rounded);
         }
+    }
+
+
+
+    private void onScrolledToBottom() {
+        if (scrollStatus == 0) {
+            scrollStatus = 0;
+            if (valStatusStatus == 0) {
+                page = page + 1;
+                PostData(page);
+
+            } else {
+                page = 0;
+                PostData(page);
+            }
+        }
+
+
+    }
+
+    private void PostData(int page) {
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
+        Call<MomentAllPostModel> call = RetrofitClient.getInstance().getAllApiResponse().allPostData(Comman.getInstance().getUser_id(), page + "");
+        call.enqueue(new Callback<MomentAllPostModel>() {
+            @Override
+            public void onResponse(Call<MomentAllPostModel> call, Response<MomentAllPostModel> response) {
+                progressDialog.dismiss();
+                MomentAllPostModel momentAllPostModel = response.body();
+                if (response.isSuccessful()) {
+                    if (momentAllPostModel.getStatus().equalsIgnoreCase("true")) {
+                        pojoArrayList = momentAllPostModel.getData();
+
+                        adapter.setData(momentAllPostModel.getData());
+
+                    }
+
+
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "" + momentAllPostModel.getMsg(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MomentAllPostModel> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 }

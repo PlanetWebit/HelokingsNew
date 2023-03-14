@@ -34,7 +34,14 @@ public class SettingActivity extends AppCompatActivity {
         settingBinding.tvAccountBinding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this,AccountBindingActivity.class);
+                Intent intent = new Intent(SettingActivity.this, AccountBindingActivity.class);
+                startActivity(intent);
+            }
+        });
+        settingBinding.joinAgenecy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, JoinAgency.class);
                 startActivity(intent);
             }
         });
